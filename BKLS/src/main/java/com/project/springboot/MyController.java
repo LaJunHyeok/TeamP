@@ -20,7 +20,7 @@ public class MyController
 	    @RequestMapping("/")
 	    public @ResponseBody String root() throws Exception{
 	    	//MyBatis : SimpleBBS
-	        return "security-loginform";
+	        return "Ã³À½";
 	    }
 	   @RequestMapping("/public/mainPage")
 	    public String userlistPage(Model model) {
