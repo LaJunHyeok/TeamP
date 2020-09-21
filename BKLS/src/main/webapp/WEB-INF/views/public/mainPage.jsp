@@ -4,9 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main Page</title>
+<title>SAFE SEOUL</title>
 </head>
+<header>
+<br><br>
+<div>
+menu bar
+</div>
+</header>
 <body>
-메인 페이지입니다.
+메인 body 페이지입니다.
 </body>
+<footer>
+회사 정보
+</footer>
 </html>

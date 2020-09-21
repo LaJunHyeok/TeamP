@@ -22,7 +22,7 @@ public class MyController
 	    	//MyBatis : SimpleBBS
 	        return "Ã³À½";
 	    }
-	   @RequestMapping("/public/mainPage")
+	   @RequestMapping("/mainPage")
 	    public String userlistPage(Model model) {
 	        model.addAttribute("list", dao.listDao());
 	        return "public/mainPage";
@@ -37,6 +37,6 @@ public class MyController
 		
 	    @RequestMapping("/writeForm")
 	    public String writeForm(){
-	        return "/writeForm";
+	        return "private/writeForm";
 	    }
 }
