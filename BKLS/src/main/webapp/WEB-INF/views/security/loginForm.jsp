@@ -6,9 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>LoginForm</title>
 </head>
+<header>
 <!-- 메뉴 바 -->
-<jsp:include page="menubar.jsp" flush="false" />
-<!--  -->
+<jsp:include page="../menubar.jsp" flush="false" />
+
+</header>
 <body>
    <div class="cotainer">
       <div class="row justify-content-center">
@@ -37,4 +39,8 @@
     </div>   
 
 </body>
+<footer>
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 </html>

@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>SAFE SEOUL</title>
 </head>
+<header>
+<!-- 메뉴 바 -->
+<jsp:include page="../menubar.jsp" flush="false" />
+
+</header>
 <body>
 
 <!-- 건의/민원 게시판 글 작성 페이지입니다.  -->
@@ -35,4 +40,8 @@
 </table>
 
 </body>
+<footer>
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 </html>
