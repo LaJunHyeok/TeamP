@@ -35,7 +35,7 @@
           게시판
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">공지 사항</a>
+          <a class="dropdown-item" href="helpBoard">공지 사항</a>
           <a class="dropdown-item" href="#">건의 및 민원</a>
         </div>
       </li>
