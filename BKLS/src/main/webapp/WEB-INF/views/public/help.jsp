@@ -6,11 +6,12 @@
 <meta charset="UTF-8">
 <title>SAFE SEOUL</title>
 </head>
-<!-- 메뉴 바 -->
+<!-- 건의/ 민원 게시판입니다. -->
+<!-- 메뉴바 -->
 <jsp:include page="menubar.jsp" flush="false" />
 
 <body>
-<!-- 메인페이지 (좌측엔 시각화자료, 우측엔 범죄토픽 크롤링데이터 시각화) -->
+
 
 
 
