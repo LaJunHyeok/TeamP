@@ -16,27 +16,82 @@ public class MyController
 	   @Autowired
 	   BbsDao dao;
 	   //MemberDao Mdao;
-	    
+	   
+	   //메인 페이징
 	    @RequestMapping("/")
-	    public @ResponseBody String root() throws Exception{
+	    public String root() throws Exception{	    	
 	    	//MyBatis : SimpleBBS
-	        return "처음";
-	    }
-	   @RequestMapping("/mainPage")
-	    public String userlistPage(Model model) {
-	        model.addAttribute("list", dao.listDao());
 	        return "public/mainPage";
 	    }
-	    // 로그인 폼 관련 페이징 시작
-	    @RequestMapping("/loginForm")
-		public String loginForm() {
-			return "security/loginForm";
-		}
+	    //--------공지사항 페이지 ------------
+	    //공지사항 리스트 페이지
+	    @RequestMapping("/board")
+	    public String board(){
+	    	return "public/board";
+	    }
+	    //관리자 공지사항 작성 페이지 
+	    @RequestMapping("/admin/writeForm")
+	    public String adminWriteForm() {
 
-		// 로그인 폼 페이징 끝
-		
-	    @RequestMapping("/writeForm")
+	    	return "admin/writeFormAdmin";
+	    }
+	  //공지사항 상세보기 페이지 (만들어야함)######################
+	    @RequestMapping("/public/confirmboard")
+	    public String confirmBoard() {
+
+	    	return "public/confirmboard";
+	    }
+	    
+	   //--------건의,민원 페이지 ----------- 
+	    //건의.민원 글 작성 페이지
+	   @RequestMapping("/writeForm")
 	    public String writeForm(){
 	        return "private/writeForm";
 	    }
+	  
+	  //민원,건의 리스트 페이지 
+	   @RequestMapping("/help")
+	    public String help(){
+	        return "public/help";
+	    }
+	 //민원,건의 상세보기 페이지 #####################
+	   @RequestMapping("/confirmHelp")
+	    public String confirmHelp(){
+	        return "private/confirmHelp";
+	    }
+	   
+	   //------시각화 자료 페이지 --------------
+	 //시각화 자료 보기 페이지 (페이지 만들어야 함)##################
+	   @RequestMapping("/dataView")
+	    public String dataView(){
+	        return "public/dataView";
+	    }  
+	   
+	  //-------로그인,회원가입 페이징 ------------
+	   // 로그인 페이징
+	    @RequestMapping("/loginForm")
+		public String loginForm() {
+			return "security/loginForm";
+	    }
+	 // 회원가입 페이징
+	    @RequestMapping("/CreateID")
+		public String CreateID() {
+	    	
+			return "security/CreateID";
+	    }
+	    // 가입확인 처리
+	    @RequestMapping("/joinOk")
+		public String joinOk() {
+	    	
+			return "#";
+	    }
+	    
+	   //관리자 회원관리 페이지 
+	    @RequestMapping("/admin/list")
+	    public String userlistPage(Model model) {
+	    	model.addAttribute("list", dao.listDao());
+	    	return "admin/ManageForMem";
+	    }
+	  
+	    
 }
