@@ -20,23 +20,26 @@ public class MyController
 	    @RequestMapping("/")
 	    public @ResponseBody String root() throws Exception{
 	    	//MyBatis : SimpleBBS
-	        return "처음";
+	        return "public/mainPage";
 	    }
 	   @RequestMapping("/mainPage")
 	    public String userlistPage(Model model) {
 	        model.addAttribute("list", dao.listDao());
 	        return "public/mainPage";
 	    }
-	    // 로그인 폼 관련 페이징 시작
+	    
 	    @RequestMapping("/loginForm")
 		public String loginForm() {
 			return "security/loginForm";
 		}
-
-		// 로그인 폼 페이징 끝
 		
 	    @RequestMapping("/writeForm")
 	    public String writeForm(){
 	        return "private/writeForm";
+	    }
+	    
+	    @RequestMapping("/CreateID")
+	    public String CreateID() {
+	    	return "security/CreateID";
 	    }
 }
