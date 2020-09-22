@@ -7,9 +7,11 @@
 <title>SAFE SEOUL</title>
 </head>
 <!-- 공지사항 게시판입니다. -->
-<!-- 메뉴바 -->
-<jsp:include page="menubar.jsp" flush="false" />
+<header>
+<!-- 메뉴 바 -->
+<jsp:include page="../menubar.jsp" flush="false" />
 
+</header>
 <body>
 
 
@@ -18,4 +20,8 @@
 
 
 </body>
+<footer>
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 </html>

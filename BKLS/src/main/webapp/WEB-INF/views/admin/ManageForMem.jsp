@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
+<header>
 <!-- 메뉴 바 -->
-<jsp:include page="menubar.jsp" flush="false" />
-<!--  -->
+<jsp:include page="../menubar.jsp" flush="false" />
 
+</header>
 <body>
 
 <p style="text-align:center">
@@ -49,4 +49,8 @@
 	</div>
 
 </body>
+<footer>
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 </html>

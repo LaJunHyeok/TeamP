@@ -7,9 +7,11 @@
 <title>SAFE SEOUL</title>
 </head>
 <!-- 근처 경찰서 찾아주는 페이지 -->
+<header>
 <!-- 메뉴 바 -->
-<jsp:include page="menubar.jsp" flush="false" />
+<jsp:include page="../menubar.jsp" flush="false" />
 
+</header>
 <body>
 
 
@@ -18,4 +20,8 @@
 
 
 </body>
+<footer>
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 </html>
