@@ -6,11 +6,12 @@
 <meta charset="UTF-8">
 <title>SAFE SEOUL</title>
 </head>
+<!-- 근처 경찰서 찾아주는 페이지 -->
 <!-- 메뉴 바 -->
 <jsp:include page="menubar.jsp" flush="false" />
 
 <body>
-<!-- 메인페이지 (좌측엔 시각화자료, 우측엔 범죄토픽 크롤링데이터 시각화) -->
+
 
 
 

@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<!-- 건의/민원 게시판 글 작성 페이지입니다.  -->
-<!-- 회원만 작성 가능 -->
+<!-- 공지사항 작성 페이지입니다.  -->
+<!-- ADMIN 만 작성 가능 -->
 
 <table width="500" cellpadding="0" cellspacing="0" border="1">
 	<form action="write" method="post">
