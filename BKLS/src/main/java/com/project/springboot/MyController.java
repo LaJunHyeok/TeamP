@@ -41,7 +41,13 @@ public class MyController
 
 	    	return "public/confirmboard";
 	    }
-	    
+	  //---------주변 파출소 안내--------------
+	    @RequestMapping("/navi")
+	    public String navi(){
+	        return "public/navigater";
+	    }
+	  
+	   
 	   //--------건의,민원 페이지 ----------- 
 	    //건의.민원 글 작성 페이지
 	   @RequestMapping("/writeForm")
@@ -74,10 +80,15 @@ public class MyController
 			return "security/loginForm";
 	    }
 	 // 회원가입 페이징
-	    @RequestMapping("/CreateID")
-		public String CreateID() {
+	    @RequestMapping("/joinForm")
+		public String JoinForm() {
 	    	
-			return "security/CreateID";
+			return "security/joinForm";
+	    }
+	 // 로그아웃 처리
+	    @RequestMapping("/logout")
+		public String logout() {
+			return "security/logout";
 	    }
 	    // 가입확인 처리
 	    @RequestMapping("/joinOk")
