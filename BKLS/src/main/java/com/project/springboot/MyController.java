@@ -44,7 +44,7 @@ public class MyController
 	  //---------주변 파출소 안내--------------
 	    @RequestMapping("/navi")
 	    public String navi(){
-	        return "public/navigater";
+	        return "public/navigator";
 	    }
 	  
 	   
