@@ -93,4 +93,9 @@
 		</div>
 	</form>
 </body>
+
+<footer>
+    <!-- footer -->
+    <jsp:include page="footer.jsp" flush="false" />
+</footer>
 </html>

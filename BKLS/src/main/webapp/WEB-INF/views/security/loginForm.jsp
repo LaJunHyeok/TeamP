@@ -32,7 +32,7 @@
       <div class="row justify-content-center">
          <button class="btn btn-md btn-info" type="submit">로 그 인</button> &nbsp;&nbsp;
       
-         <a type ="button" class="btn btn-md btn-info" href="join.jsp">회원가입</a>
+         <a type ="button" class="btn btn-md btn-info" href="joinForm">회원가입</a>
       </div>
     </div>   
 
