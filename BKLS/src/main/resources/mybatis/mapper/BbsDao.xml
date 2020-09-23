@@ -5,8 +5,8 @@
 	
 <mapper namespace="com.project.springboot.dao.BbsDao">
 
-	<select id="listDao" resultType="com.project.springboot.dto.BbsDto">
-		select * from simple_bbs order by id desc
+	<select id="board" resultType="com.project.springboot.dto.BbsDto">
+		select * from TEST
 	</select>
 	
 	<select id="viewDao" resultType="com.project.springboot.dto.BbsDto">

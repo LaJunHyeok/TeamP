@@ -10,6 +10,7 @@ import com.project.springboot.dto.BbsDto;
 public interface BbsDao {
 	
 	public List<BbsDto> listDao();
+	public List<BbsDto> board();
 	public BbsDto viewDao(String id);
 	public int writeDao(String writer,String title, String content);
 	public int deleteDao(String id);
