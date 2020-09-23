@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class BbsDto {
-	private int id;
-	private String writer;
-	private String title;
-	private String content;
+	private String id;
+	private String pw;
+	private String name;
+	private String addr;
 }

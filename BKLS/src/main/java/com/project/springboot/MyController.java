@@ -1,14 +1,14 @@
 package com.project.springboot;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.springboot.dao.BbsDao;
+import com.project.springboot.dto.BbsDto;
 
 @Controller
 public class MyController
@@ -25,9 +25,13 @@ public class MyController
 	    }
 	    //--------공지사항 페이지 ------------
 	    //공지사항 리스트 페이지
-	    @RequestMapping("/board")
-	    public String board(){
-	    	return "public/board";
+	    @RequestMapping("/notice")
+	    public String notice(Model model){
+
+	    	List<BbsDto> notice= dao.notice();
+
+	    	model.addAttribute("notice", dao.notice());
+	    	return "public/notice";
 	    }
 	    //관리자 공지사항 작성 페이지 
 	    @RequestMapping("/admin/writeForm")
