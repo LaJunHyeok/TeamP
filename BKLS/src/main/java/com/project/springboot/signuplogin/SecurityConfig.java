@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception
     {
         // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**","/public/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**","/public/**","/security/**");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
             .and()
                 // 403 예외처리 핸들링 접근권한없을때 예외처리 핸들링
-                               .exceptionHandling().accessDeniedPage("/");
+                               .exceptionHandling().accessDeniedPage("/loginForm");
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

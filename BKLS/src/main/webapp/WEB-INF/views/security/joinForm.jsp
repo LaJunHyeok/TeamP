@@ -24,7 +24,7 @@
 					<p style="text-align: center">
 						<font size="6" color="#5bc0de">회원 가입</font>
 						
-					<form th:action="@{/joinOk}" method="post" class="needs-validation" novalidate>
+					<form action="/joinOk" method="post" class="needs-validation" novalidate>
 						<div class="row"></div>
 						
 						<div class="mb-3">
@@ -50,7 +50,7 @@
 
 						<div class="mb-3">
 							<label for="pw">비밀번호</label> <input type="password"
-								class="form-control" name="pw" placeholder="필수 입력 값" value=""
+								class="form-control" name="password" placeholder="필수 입력 값" value=""
 								required>
 							<div class="invalid-feedback">Valid first name is required.
 							</div>
@@ -66,7 +66,7 @@
 
 						<div class="mb-3">
 							<label for="eMail">이메일 <span class="text-muted">(필수
-									입력 값)</span></label> <input type="email" class="form-control" name="eMail"
+									입력 값)</span></label> <input type="email" class="form-control" name="email"
 								placeholder="safe@seoul.com">
 							<div class="invalid-feedback">Please enter a valid email
 								address for shipping updates.</div>

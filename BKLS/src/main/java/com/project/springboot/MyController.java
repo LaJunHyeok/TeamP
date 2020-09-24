@@ -97,7 +97,7 @@ public class MyController
 	    @PostMapping("/joinOk")
 		public String joinOk(MemberDto memberDto) {
 	    	
-			return "redirect:/security/loginForm";
+			return "/security/loginForm";
 	    }
 	 // 로그인 페이징
 	    @GetMapping("/security/loginForm")
