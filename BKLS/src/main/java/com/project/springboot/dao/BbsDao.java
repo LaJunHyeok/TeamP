@@ -10,8 +10,12 @@ import com.project.springboot.dto.BbsDto;
 public interface BbsDao {
 	
 	public List<BbsDto> listDao();
-	public List<BbsDto> notice();
 	public BbsDto viewDao(String id);
-	public int writeDao(String writer,String title, String content);
+	public int writeDao(String title, String content);
 	public int deleteDao(String id);
+	public List<BbsDto> notice();
+	public List<BbsDto> noticeview(int num);
+	public int noticedelete(int num);
+	public int noticeupdate(int num,String title,String content);
+	public String noticemodify(int num);
 }

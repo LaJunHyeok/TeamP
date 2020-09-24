@@ -13,100 +13,144 @@ import com.project.springboot.dto.BbsDto;
 @Controller
 public class MyController
 {
-	   @Autowired
-	   BbsDao dao;
-	   //MemberDao Mdao;
-	   
-	   //¸ÞÀÎ ÆäÀÌÂ¡
-	    @RequestMapping("/")
-	    public String root() throws Exception{	    	
-	    	//MyBatis : SimpleBBS
-	        return "public/mainPage";
-	    }
-	    //--------°øÁö»çÇ× ÆäÀÌÁö ------------
-	    //°øÁö»çÇ× ¸®½ºÆ® ÆäÀÌÁö
-	    @RequestMapping("/notice")
-	    public String notice(Model model){
+	@Autowired
+	BbsDao dao;
+	//MemberDao Mdao;
 
-	    	List<BbsDto> notice= dao.notice();
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡
+	@RequestMapping("/")
+	public String root() throws Exception{	    	
+		//MyBatis : SimpleBBS
+		return "public/mainPage";
+	}
+	//--------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ------------
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping("admin/write")
+	public String write(String title,String content){
+		dao.writeDao(title, content);
+		System.out.println("write");
+		return "redirect:/notice";
+	}
+	@RequestMapping("/notice")
+	public String notice(Model model){
+		List<BbsDto> notice = dao.notice();
+		System.out.println("notice");
+		model.addAttribute("notice", notice);
+		System.out.println(notice);
+		return "public/notice";
+	}
+	@RequestMapping("/noticeview")
+	public String noticeview(Model model, int num){
 
-	    	model.addAttribute("notice", dao.notice());
-	    	return "public/notice";
-	    }
-	    //°ü¸®ÀÚ °øÁö»çÇ× ÀÛ¼º ÆäÀÌÁö 
-	    @RequestMapping("/admin/writeForm")
-	    public String adminWriteForm() {
+		System.out.println("noticeview");
+		List<BbsDto> noticeview = dao.noticeview(num);
+		model.addAttribute("notice", noticeview);
+		System.out.println(noticeview);
+		return "public/noticeView";
+	}
+	@RequestMapping("/noticedelete")
+	public String noticedelete(Model model,int num){
 
-	    	return "admin/writeFormAdmin";
-	    }
-	  //°øÁö»çÇ× »ó¼¼º¸±â ÆäÀÌÁö (¸¸µé¾î¾ßÇÔ)######################
-	    @RequestMapping("/public/confirmboard")
-	    public String confirmBoard() {
+		dao.noticedelete(num);
+		System.out.println("noticedelete");
 
-	    	return "public/confirmboard";
-	    }
-	  //---------ÁÖº¯ ÆÄÃâ¼Ò ¾È³»--------------
-	    @RequestMapping("/navi")
-	    public String navi(){
-	        return "public/navigator";
-	    }
-	  
-	   
-	   //--------°ÇÀÇ,¹Î¿ø ÆäÀÌÁö ----------- 
-	    //°ÇÀÇ.¹Î¿ø ±Û ÀÛ¼º ÆäÀÌÁö
-	   @RequestMapping("/writeForm")
-	    public String writeForm(){
-	        return "private/writeForm";
-	    }
-	  
-	  //¹Î¿ø,°ÇÀÇ ¸®½ºÆ® ÆäÀÌÁö 
-	   @RequestMapping("/help")
-	    public String help(){
-	        return "public/help";
-	    }
-	 //¹Î¿ø,°ÇÀÇ »ó¼¼º¸±â ÆäÀÌÁö #####################
-	   @RequestMapping("/confirmHelp")
-	    public String confirmHelp(){
-	        return "private/confirmHelp";
-	    }
-	   
-	   //------½Ã°¢È­ ÀÚ·á ÆäÀÌÁö --------------
-	 //½Ã°¢È­ ÀÚ·á º¸±â ÆäÀÌÁö (ÆäÀÌÁö ¸¸µé¾î¾ß ÇÔ)##################
-	   @RequestMapping("/dataView")
-	    public String dataView(){
-	        return "public/dataView";
-	    }  
-	   
-	  //-------·Î±×ÀÎ,È¸¿ø°¡ÀÔ ÆäÀÌÂ¡ ------------
-	   // ·Î±×ÀÎ ÆäÀÌÂ¡
-	    @RequestMapping("/loginForm")
-		public String loginForm() {
-			return "security/loginForm";
-	    }
-	 // È¸¿ø°¡ÀÔ ÆäÀÌÂ¡
-	    @RequestMapping("/joinForm")
-		public String JoinForm() {
-	    	
-			return "security/joinForm";
-	    }
-	 // ·Î±×¾Æ¿ô Ã³¸®
-	    @RequestMapping("/logout")
-		public String logout() {
-			return "security/logout";
-	    }
-	    // °¡ÀÔÈ®ÀÎ Ã³¸®
-	    @RequestMapping("/joinOk")
-		public String joinOk() {
-	    	
-			return "#";
-	    }
-	    
-	   //°ü¸®ÀÚ È¸¿ø°ü¸® ÆäÀÌÁö 
-	    @RequestMapping("/admin/list")
-	    public String userlistPage(Model model) {
-	    	model.addAttribute("list", dao.listDao());
-	    	return "admin/ManageForMem";
-	    }
-	  
-	    
+		return "redirect:/notice";
+	}
+	@RequestMapping("/noticeupdate")
+	public String update(Model model ,String num,String title,String content){
+		int bnum = Integer.parseInt(num);
+		dao.noticeupdate(bnum,title,content);
+		System.out.println("noticeupdate");
+		System.out.println(num);
+		System.out.println(title);
+		System.out.println(content);
+		return "redirect:/notice";
+	}
+	@RequestMapping("/noticemodify")
+	public String noticemodify(Model model ,int num){
+		
+		System.out.println("noticemodify");
+		List<BbsDto> noticeview = dao.noticeview(num);
+		model.addAttribute("notice", noticeview);
+
+		System.out.println(noticeview);
+
+		//model.addAttribute("notice", dao.notice());
+		return "admin/noticemodify";
+	}
+
+
+
+
+
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	@RequestMapping("/admin/writeForm")
+	public String adminWriteForm() {
+
+		return "admin/writeNotice";
+	}
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)######################
+	@RequestMapping("/public/confirmboard")
+	public String confirmBoard() {
+
+		return "public/confirmboard";
+	}
+	//---------ï¿½Öºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½--------------
+	@RequestMapping("/navi")
+	public String navi(){
+		return "public/navigator";
+	}
+
+
+	
+	//ï¿½Î¿ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	@RequestMapping("/help")
+	public String help(){
+		return "public/help";
+	}
+	//ï¿½Î¿ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ #####################
+	@RequestMapping("/confirmHelp")
+	public String confirmHelp(){
+		return "private/confirmHelp";
+	}
+
+	//------ï¿½Ã°ï¿½È­ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --------------
+	//ï¿½Ã°ï¿½È­ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)##################
+	@RequestMapping("/dataView")
+	public String dataView(){
+		return "public/dataView";
+	}  
+
+	//-------ï¿½Î±ï¿½ï¿½ï¿½,È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ ------------
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡
+	@RequestMapping("/loginForm")
+	public String loginForm() {
+		return "security/loginForm";
+	}
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡
+	@RequestMapping("/joinForm")
+	public String JoinForm() {
+
+		return "security/joinForm";
+	}
+	// ï¿½Î±×¾Æ¿ï¿½ Ã³ï¿½ï¿½
+	@RequestMapping("/logout")
+	public String logout() {
+		return "security/logout";
+	}
+	// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ Ã³ï¿½ï¿½
+	@RequestMapping("/joinOk")
+	public String joinOk() {
+
+		return "#";
+	}
+
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	@RequestMapping("/admin/list")
+	public String userlistPage(Model model) {
+		model.addAttribute("list", dao.listDao());
+		return "admin/ManageForMem";
+	}
+
+
 }
