@@ -2,6 +2,12 @@ package com.project.springboot;
 
 import java.util.List;
 
+import com.project.springboot.dto.MemberDto;
+import com.project.springboot.dao.MemberDao;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +17,10 @@ import com.project.springboot.dao.BbsDao;
 import com.project.springboot.dto.BbsDto;
 
 @Controller
+@AllArgsConstructor
 public class MyController
 {
+	 private MemberDao memberDao;
 	   @Autowired
 	   BbsDao dao;
 	   //MemberDao Mdao;
@@ -23,6 +31,7 @@ public class MyController
 	    	//MyBatis : SimpleBBS
 	        return "public/mainPage";
 	    }
+	   
 	    //--------공지사항 페이지 ------------
 	    //공지사항 리스트 페이지
 	    @RequestMapping("/notice")
@@ -78,29 +87,46 @@ public class MyController
 	    }  
 	   
 	  //-------로그인,회원가입 페이징 ------------
-	   // 로그인 페이징
-	    @RequestMapping("/loginForm")
-		public String loginForm() {
-			return "security/loginForm";
+	   // 회원가입 페이지
+	    @GetMapping("/joinForm")
+	    public String dispSignup() {
+	        return "security/joinForm";
 	    }
-	 // 회원가입 페이징
-	    @RequestMapping("/joinForm")
-		public String JoinForm() {
+
+	    // 가입확인 처리
+	    @PostMapping("/joinOk")
+		public String joinOk(MemberDto memberDto) {
 	    	
-			return "security/joinForm";
+			return "redirect:/security/loginForm";
 	    }
+	 // 로그인 페이징
+	    @GetMapping("/security/loginForm")
+		public String loginForm1() {
+			return "loginForm";
+	    }
+	 // 로그인 결과페이지
+	    @PostMapping("/security/loginForm/result")
+		public String loginOk1() {
+	    	
+			return "security/loginSuccess";
+	    }
+//	    // 로그인 페이징
+//	    @GetMapping("/loginForm")
+//		public String loginForm() {
+//			return "security/loginForm";
+//	    }
+//	 // 로그인 결과페이지
+//	    @PostMapping("/loginOk")
+//		public String loginOk() {
+//	    	
+//			return "security/loginSuccess";
+//	    }
 	 // 로그아웃 처리
 	    @RequestMapping("/logout")
 		public String logout() {
-			return "security/logout";
+			return "public/mainPage";
 	    }
-	    // 가입확인 처리
-	    @RequestMapping("/joinOk")
-		public String joinOk() {
-	    	
-			return "#";
-	    }
-	    
+	   
 	   //관리자 회원관리 페이지 
 	    @RequestMapping("/admin/list")
 	    public String userlistPage(Model model) {

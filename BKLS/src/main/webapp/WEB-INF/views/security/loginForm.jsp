@@ -14,29 +14,34 @@
 <body>
    <div class="cotainer">
       <div class="row justify-content-center">
-         <form action="login.do" method="post">
-         <body class="text-center">
-         <form class="form-signin" action="loginOk.jsp" method="post">
+         <div class="text-center">
+         <form class="form-signin" action="loginOk" method="post">
          <p style="text-align: center">
          <br><br>
          <font size="6" color="#5bc0de">로 그 인</font> <br>
          <br>
+         
+         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+         
          <label for="inputID" class="sr-only">ID</label>
-         <input type="text" name="id" placeholder="아이디" class="form-control" value="<%if (session.getAttribute("id") != null)
+         <input type="text" name="username" placeholder="아이디" class="form-control" value="<%if (session.getAttribute("id") != null)
          out.println(session.getAttribute("id"));%>" required autofocus>
          <label for="inputPassword" class="sr-only">Password</label>
          <input type="password" name="pw" class="form-control" placeholder="비밀번호" required>
-         </form>
-      </div>
-   </div>
-   
-   <div class="container">
+        </p>
+        <div class="container">
       <div class="row justify-content-center">
          <button class="btn btn-md btn-info" type="submit">로 그 인</button> &nbsp;&nbsp;
       
          <a type ="button" class="btn btn-md btn-info" href="join.jsp">회원가입</a>
       </div>
     </div>   
+    </form>
+         </div>
+      </div>
+   </div>
+   
+   
 
 </body>
 <footer>

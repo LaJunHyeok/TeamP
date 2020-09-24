@@ -16,7 +16,6 @@
 
 	<!--  회원가입창 -->
 
-	<form action=" joinOk" method="post" name="reg_frm">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-8 order-md-1">
@@ -24,9 +23,10 @@
 					<br> <br>
 					<p style="text-align: center">
 						<font size="6" color="#5bc0de">회원 가입</font>
-					<form class="needs-validation" novalidate>
+						
+					<form th:action="@{/joinOk}" method="post" class="needs-validation" novalidate>
 						<div class="row"></div>
-
+						
 						<div class="mb-3">
 							<label for="name">이름</label> <input type="text"
 								class="form-control" name="name" placeholder="필수 입력 값" value=""
@@ -84,15 +84,14 @@
 						<hr class="mb-4">
 
 						<!-- <hr class="mb-4">  -->
-						<button class="btn btn-info btn-lg btn-block" type="button"
-							onclick="">가입 완료하기</button>
+						<button class="btn btn-info btn-lg btn-block" type="submit"
+							>가입 완료하기</button>
 						<button class="btn btn-info btn-lg btn-block" type="button"
 							onclick="history.go(-1)">돌아가기</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</form>
 </body>
 <footer>
     <!-- footer -->

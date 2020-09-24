@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class BbsDto {
+	private int num;
 	private String id;
-	private String pw;
-	private String name;
-	private String addr;
+	private String title;
+	private int hit;
 }
