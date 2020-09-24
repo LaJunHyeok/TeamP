@@ -43,7 +43,9 @@ public class MyController
 	public String noticeview(Model model, int num){
 
 		System.out.println("noticeview");
+		dao.noticehit(num);
 		List<BbsDto> noticeview = dao.noticeview(num);
+		
 		model.addAttribute("notice", noticeview);
 		System.out.println(noticeview);
 		return "public/noticeView";
@@ -77,6 +79,15 @@ public class MyController
 
 		//model.addAttribute("notice", dao.notice());
 		return "admin/noticemodify";
+	}
+	@RequestMapping("/noticesearch")
+	public String noticesearch(Model model, String title ){
+		System.out.println(title);
+		List<BbsDto> noticesearch = dao.noticesearch(title);
+		System.out.println("search");
+		model.addAttribute("notice", noticesearch);
+		System.out.println(noticesearch);
+		return "public/noticeSearch";
 	}
 
 

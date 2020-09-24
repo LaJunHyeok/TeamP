@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="입력">
-							&nbsp;&nbsp; <a href="notice">목록보기</a></td>
+							&nbsp;&nbsp; <a href="/notice">목록보기</a></td>
 					</tr>
 
 				</form>

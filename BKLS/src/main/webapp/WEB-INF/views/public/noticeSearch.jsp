@@ -74,12 +74,18 @@ function showButton(){
 				<button>
 					<a href="admin/writeForm" role="button">글작성</a>
 				</button>
-				<br />
-				<br />
-			<form class="form-inline my-2 my-lg-0" action="noticesearch"method="post">
-				<input class="form-control mr-sm-2" type="text" name="title"
-					placeholder="Search"> 
-					<input	class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+			<form class="form-inline my-2 my-lg-0" action="noticesearch"
+				method="post">
+				<!-- <select name="opt">
+					<option value="bc">내용</option>
+					<option value="wr">작성자</option>
+					<option value="bt">제목</option>
+				</select>
+				--> 
+				<input class="form-control mr-sm-2" type="text" name="search"
+					placeholder="Search"> <input
+					class="btn btn-outline-success my-2 my-sm-0" type="submit"
+					value="Search">
 			</form>
 			</p>
 		</div>

@@ -38,5 +38,12 @@
 		update notice_list set notice_title=#{param2}, notice_content=#{param3}
 		where notice_num =#{param1}
 	</update>
+	<update id="noticehit">
+		update notice_list set notice_hit = notice_hit + 1 
+		where notice_num =#{param1}
+	</update>
+	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
+		select * from notice_list where notice_title=#{param1}
+	</select>
 
 </mapper>
