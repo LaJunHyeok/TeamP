@@ -6,7 +6,7 @@
 <mapper namespace="com.project.springboot.dao.BbsDao">
 
 	<select id="notice" resultType="com.project.springboot.dto.BbsDto">
-		select * from NOTICE_LIST(NOTICE_NUM,NOTICE_ID,NOTICE_TITLE,NOTICE_HIT)
+		select * from NOTICE_LIST 
 	</select>
 	
 	<select id="viewDao" resultType="com.project.springboot.dto.BbsDto">

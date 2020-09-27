@@ -1,7 +1,8 @@
 package com.project.springboot.signuplogin;
 
-import com.project.springboot.dao.MemberDao;
-import lombok.AllArgsConstructor;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,50 +11,65 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
+
 @EnableWebSecurity
-@AllArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberDao memberDao;
+@Configuration 
+public class SecurityConfig extends WebSecurityConfigurerAdapter { 
+	
+  @Autowired
+  public AuthenticationFailureHandler authenticationFailureHandler; 
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Override
+  public void configure(WebSecurity web) { // 무조건 접근 가능한 인증무시경로
+    web.ignoring().antMatchers("/css/**","/src/**","/js/**", "/img/**","/seoul.png",
+    		"/security/**","/public/**");
+  }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception
-    {
-        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**","/public/**","/security/**");
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception { 
+    http
+          .authorizeRequests() // 7
+            .antMatchers("/","/security/**", "/public/**", "/footer","/menubar","/**").permitAll() // 누구나 접근 허용
+            .antMatchers("/private/**").hasAnyRole("ADMIN","USER")
+            .antMatchers("/admin/**").hasRole("ADMIN") // ADMIN만 접근 가능
+            .antMatchers("/**").permitAll()
+        .and() 
+          .formLogin()
+            .loginPage("/security/loginForm") // 로그인 페이지 링크
+            .defaultSuccessUrl("/security/loginSuccess") // 로그인 성공 후 리다이렉트 주소
+            .loginProcessingUrl("/loginOk")
+            .failureHandler(authenticationFailureHandler)
+            .permitAll()
+        .and()
+          	.logout() // 9
+          	.logoutRequestMatcher(new AntPathRequestMatcher("/security/logout"))
+            .logoutSuccessUrl("/public/mainPage") // 로그아웃 성공시 리다이렉트 주소
+            .invalidateHttpSession(true) // 세션 날리기
+        ;
+  }
+  
+  @Bean 
+  public BCryptPasswordEncoder passwordEncoder() { // 비밀번호 암호화할때 사용할 인코더를 미리 bean으로 등록하는 과정
+    return new BCryptPasswordEncoder();
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                // 페이지 권한 설정
-                                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/private/myinfo").hasRole("MEMBER")
-                .antMatchers("/**").permitAll()
-            .and() // 로그인 설정
-                                .formLogin()
-                .loginPage("/security/loginForm")
-                .defaultSuccessUrl("/security/loginForm/result")
-                .permitAll()
-            .and() // 로그아웃 설정
-                               .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-            .and()
-                // 403 예외처리 핸들링 접근권한없을때 예외처리 핸들링
-                               .exceptionHandling().accessDeniedPage("/loginForm");
-    }
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberDao).passwordEncoder(passwordEncoder());
-    }
+  @Autowired
+  private DataSource dataSource;
+  
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+	  
+	  auth.jdbcAuthentication()
+	  	  .dataSource(dataSource)
+	  	  .usersByUsernameQuery("select email as username,password,enabled "
+	  	  		+ " from USER_TEST1 where email = ?")
+	  	  .authoritiesByUsernameQuery("select email as username,authority "
+	  	  		+ " from USER_TEST1 where email = ?")
+	  	  .passwordEncoder(new BCryptPasswordEncoder());
+  }
+
+
 }

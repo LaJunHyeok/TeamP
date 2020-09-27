@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.project.springboot.signuplogin.UserService">
+
+	<select id="login" resultType="com.project.springboot.dto.UserInfoDto">
+		select * from USER_TEST1 where email = #{0}
+	</select>
+
+	<insert id="join" parameterType="java.util.HashMap">
+		insert into USER_TEST1(email,password)
+			values (#{item1}, #{item2})
+	</insert>
+
+</mapper>

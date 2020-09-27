@@ -45,11 +45,11 @@ function showButton(){
                <c:forEach items="${notice}" var="dto">
 
                   <tr>
-                     <td>${dto.num}</td>
-                     <td>${dto.id}</td>
+                     <td>${dto.NOTICE_NUM}</td>
+                     <td>${dto.NOTICE_ID}</td>
 
-                      <td>${dto.title}</td>
-                     <td>${dto.hit}</td>
+                      <td>${dto.NOTICE_TITLE}</td>
+                     <td>${dto.NOTICE_HIT}</td>
                   </tr>
 
                </c:forEach>

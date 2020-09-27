@@ -24,7 +24,7 @@
 					<p style="text-align: center">
 						<font size="6" color="#5bc0de">회원 가입</font>
 						
-					<form action="/joinOk" method="post" class="needs-validation" novalidate>
+					<form action="/public/joinOk" method="post" class="needs-validation" novalidate>
 						<div class="row"></div>
 						
 						<div class="mb-3">
@@ -41,7 +41,7 @@
 								<div class="input-group-prepend">
 									<!-- <span class="input-group-text">@</span> -->
 								</div>
-								<input type="text" class="form-control" name="id"
+								<input type="text" class="form-control" name="j_username"
 									placeholder="필수 입력 값" required>
 								<div class="invalid-feedback" style="width: 100%;">Your
 									username is required.</div>
@@ -50,7 +50,7 @@
 
 						<div class="mb-3">
 							<label for="pw">비밀번호</label> <input type="password"
-								class="form-control" name="password" placeholder="필수 입력 값" value=""
+								class="form-control" name="j_password" placeholder="필수 입력 값" value=""
 								required>
 							<div class="invalid-feedback">Valid first name is required.
 							</div>

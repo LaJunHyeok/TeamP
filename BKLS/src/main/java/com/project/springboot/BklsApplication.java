@@ -9,5 +9,5 @@ public class BklsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BklsApplication.class, args);
 	}
-
 }
+

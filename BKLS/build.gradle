@@ -29,10 +29,11 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-taglibs'
 	compile 'com.microsoft.sqlserver:mssql-jdbc'
 	compile 'org.mybatis:mybatis:3.4.5'
-
+	implementation 'org.springframework.security:spring-security-taglibs'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 compile("org.springframework.boot:spring-boot-starter-data-jpa")
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,15 +19,10 @@
    crossorigin="anonymous"></script>
 <!-- Bootstrap CSS -->
 
-<!-- ------------------------------------------------------------------------- -->
-<% String se = "1"; %>
-<!--  ------------------------------------------------------------------------ -->
-
-
 <!-- Nav Bar -->   
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand">
-  <a href="/BKLS/"><img src="seoul.png" width="80" height="80" ></a>
+  <a href="/"><img src="../seoul.png" width="80" height="80" ></a>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -40,26 +38,37 @@
           게시판
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="notice">공지 사항</a>
-          <a class="dropdown-item" href="help">건의 및 민원</a>
+          <a class="dropdown-item" href="/public/notice">공지 사항</a>
+          <a class="dropdown-item" href="/public/help">건의 및 민원</a>
         </div>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="navi"> 주변 파출소 안내 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/public/navi"> 주변 파출소 안내 <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="loginForm">
+    <sec:authorize access="!isAuthenticated()">
+    <form class="form-inline my-2 my-lg-0" action="/security/loginForm">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그인</button>
     </form>
-    <% if(se=="1"){ %>
-      <form class="form-inline my-2 my-lg-0" action="logout">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그아웃</button>
-    </form>
-   <% } else{ %>
-   <form class="form-inline my-2 my-lg-0" action="joinForm">
+   <form class="form-inline my-2 my-lg-0" action="/security/joinForm">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">회원가입</button>
     </form>
-   <%  }; %>
+    </sec:authorize>
+    
+    <sec:authorize access="isAuthenticated()">
+    <%--USER ID : ${pageContext.request.userPrincipal.name}<br/> --%>
+    
+     <form class="form-inline my-2 my-lg-0" action="/logout">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그아웃</button>
+    </form>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+    <a href="admin/manageForMem">관리자화면</a>
+    </sec:authorize>
+
+     
+
+
   </div>
 </nav>
 <!-- Nav Bar -->
