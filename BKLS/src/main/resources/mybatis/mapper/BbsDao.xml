@@ -6,7 +6,7 @@
 <mapper namespace="com.project.springboot.dao.BbsDao">
 
 	<select id="notice" resultType="com.project.springboot.dto.BbsDto">
-		SELECT * FROM NOTICE_LIST ORDER BY NOTICE_NUM
+		select * from notice_list order by notice_num
 	</select>
 	
 	<select id="viewDao" resultType="com.project.springboot.dto.BbsDto">
