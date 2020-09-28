@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.springboot.dao.BbsDao">
+	<select id="listDao"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from simple_bbs order by id desc
+	</select>
+
+	<select id="viewDao"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from simple_bbs where id = #{param1}
+	</select>
+
+	<insert id="writeDao">
+		INSERT INTO
+		NOTICE_LIST(NOTICE_NUM,NOTICE_ID,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_DATE)
+		VALUES(NEXT VALUE FOR
+		NOTICE_SEQ,'admin',#{param1},#{param2},SYSDATETIME());
+	</insert>
+
+	<delete id="deleteDao">
+		delete from simple_bbs where id=#{param1}
+	</delete>
+	<select id="notice"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from [dbo].[NOTICE_LIST]
+		order by notice_num asc , notice_date desc
+		offset #{param1} rows
+		fetch next 5 only
+
+
+	</select>
+	<select id="noticeview"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from notice_list where notice_num = #{param1}
+	</select>
+	<delete id="noticedelete">
+		delete from notice_list where notice_num =#{param1}
+	</delete>
+	<update id="noticeupdate">
+		update notice_list set notice_title=#{param2},
+		notice_content=#{param3}
+		where notice_num =#{param1}
+	</update>
+	<update id="noticehit">
+		update notice_list set notice_hit = notice_hit + 1
+		where notice_num =#{param1}
+	</update>
+	<select id="noticesearch"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from notice_list where notice_title=#{param1}
+	</select>
+	<select id="articlePage"
+		resultType="com.project.springboot.dto.BbsPage">
+		select count(*)as total from notice_list
+	</select>
+
+
+</mapper>
