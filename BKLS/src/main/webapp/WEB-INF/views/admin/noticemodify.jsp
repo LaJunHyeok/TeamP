@@ -21,13 +21,15 @@
 			<p align="center">
 			<table class="table table-dark" cellpadding="0" cellspacing="0"
 				border="1">
-	
+
 		<form action="noticeupdate" method="post">
 			<!--<c:forEach items="${notice}" var="dto">-->
+				<input type="hidden" name="num"value="${dto.notice_num}"> 
 				<tr>
-					<td><input type="hidden" name="num"value="${dto.notice_num}"></td>
+					<td>글번호</td>
+					<td>${dto.notice_num}</td>
 				</tr>
-				<tr>
+								<tr>
 					<td>작성자</td>
 					<td>${dto.notice_id}</td>
 				</tr>
@@ -40,7 +42,8 @@
 				<tr>
 					<td>내용</td>
 					<td><input type="text" id="content"name="content" size="100"
-						value="${dto.notice_content}"></td>
+						value="${dto.notice_content}"></td>						
+						
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="입력">
@@ -59,4 +62,4 @@
     <!-- footer -->
     <jsp:include page="../footer.jsp" flush="false" />
 </footer>
-</html>
+</html> 

@@ -45,5 +45,9 @@
 	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list where notice_title=#{param1}
 	</select>
+	
+	<select id="noticetotalCount" resultType="com.project.springboot.dto.BbsDto">
+		SELECT COUNT(*) FROM NOTICE_LIST;
+	</select>
 
 </mapper>

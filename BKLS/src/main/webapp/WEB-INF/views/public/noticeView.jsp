@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>SAFE SEOUL</title>
 </head>
+
 <header>
 	<!-- 메뉴 바 -->
 	<jsp:include page="../menubar.jsp" flush="false" />
@@ -43,10 +44,7 @@
 						<td>제목</td>
 						<td>${dto.notice_title}</td>
 					</tr>
-					<tr>
-						<td>내용</td>
-						<td>${dto.notice_content}</td>
-					</tr>
+					
 					<tr>
 						<td>작성일</td>
 						<td>${dto.notice_date}</td>
@@ -54,6 +52,13 @@
 					<tr>
 						<td>조회수</td>
 						<td>${dto.notice_hit}</td>
+					</tr>
+					
+					<tr>
+						<td>내용</td>
+						<td>${dto.notice_content}</td>
+						
+						
 					</tr>
 
 				</tbody>

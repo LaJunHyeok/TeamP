@@ -12,17 +12,7 @@
 <!-- 공지사항 게시판입니다. -->
 <!-- 메뉴바 -->
 <jsp:include page="../menubar.jsp" flush="false" />
-<!--<script type="text/javascript">
-function showButton(){
-   var tmpkub = $("#openkub").val();
-   if(tmpkub == '1'){
-      $("#btnclickme").show();
-   }else if(tmpkub == '2'){
-      $("#btnclickme").hide()
-   }
-}
-</script>
--->
+
 <body>
 	<div class="container">
 		<div class="row justify-content-center">
