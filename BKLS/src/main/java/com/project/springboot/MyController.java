@@ -1,26 +1,27 @@
 package com.project.springboot;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.springboot.dao.BbsDao;
 import com.project.springboot.dto.BbsDto;
+import com.project.springboot.signuplogin.AccountMapper;
+import com.project.springboot.signuplogin.AccountService;
 import com.project.springboot.signuplogin.UserService;
-
-import lombok.AllArgsConstructor;;
 
 
 @Controller
-@AllArgsConstructor
 public class MyController
 {
 
@@ -28,7 +29,14 @@ public class MyController
 	   private BbsDao dao;
 	   @Autowired
 	   private UserService user;
-	   //MemberDao Mdao;
+	   
+	   @Autowired
+		AccountService accountService;
+
+		@Autowired
+		AccountMapper accountMapper;
+		
+		Logger log = LoggerFactory.getLogger(this.getClass());
 	   
 	   //메인 페이징
 	    @RequestMapping("/")
@@ -112,20 +120,22 @@ public class MyController
 	    }
 	 // 로그인 페이징
 	    @RequestMapping("/security/loginForm")
-		public String loginForm() {
+		public String loginForm(Model model, HttpServletRequest req) {
 			return "security/loginForm";
 	    }
-	 // 로그인 페이징
-	    @RequestMapping("/loginOk")
-		public String loginOk() {
-			return "public/mainPage";
-	    }
+
 	 // 로그인 결과페이지
 	    @RequestMapping("/security/loginSuccess")
-		public String loginOk(Model model) {
+		public String loginOk() {
 	    	
 			return "security/loginSuccess";
 	    }
+	 // LOGIN Fail	
+		@GetMapping("/loginFail")
+		@ResponseBody
+		public String loginFail() {
+			return "Fail !";
+		}
 	 // 로그아웃 처리
 	    @RequestMapping("/logout")
 		public String logout() {

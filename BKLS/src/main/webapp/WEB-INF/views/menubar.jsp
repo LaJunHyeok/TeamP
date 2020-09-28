@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ page import="org.springframework.security.core.Authentication"%>
+<%@ page import="com.project.springboot.signuplogin.Account" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -54,15 +57,24 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">회원가입</button>
     </form>
     </sec:authorize>
-    
-    <sec:authorize access="isAuthenticated()">
-    <%--USER ID : ${pageContext.request.userPrincipal.name}<br/> --%>
-    
-     <form class="form-inline my-2 my-lg-0" action="/logout">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그아웃</button>
-    </form>
-    </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
+
+
+		<sec:authorize access="isAuthenticated()">
+			<div class="form-group" align="center">
+				<h5><sec:authentication property="principal.username" />
+					님, 반갑습니다.
+					<%--<sec:authentication property="principal.username" />님, 겁나 반갑습니다. --%>
+				</h5>
+				<br>
+				<form action="/logout" method="POST">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<button type="submit" class="btn btn-dark btn-sm">LOGOUT</button>
+				</form>
+			</div>
+		</sec:authorize>
+		<input type="hidden" name="loginRedirect" value="${loginRedirect}" />
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
     <a href="admin/manageForMem">관리자화면</a>
     </sec:authorize>
 

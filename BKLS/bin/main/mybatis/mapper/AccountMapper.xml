@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.springboot.signuplogin.AccountMapper">
+
+	<select id="readAccount"  parameterType="String" resultType="com.project.springboot.signuplogin.Account">
+		SELECT * FROM USER_ACCOUNT
+		WHERE id= #{id}
+	</select>
+	
+	<select id="readAuthorites"  parameterType="String" resultType="String">
+		SELECT authority_name 
+		FROM AUTHORITY WHERE userName=#{userName}
+	</select>
+
+	<insert id="insertUser" parameterType="com.project.springboot.signuplogin.Account">
+		INSERT USER_ACCOUNT
+		VALUES (
+		#{id},
+		#{password},
+		#{isAccountNonExpired},
+		#{isAccountNonLocked},
+		#{isCredentialsNonExpired},
+		#{isEnabled}
+		)
+	</insert>
+
+	<insert id="insertUserAuthority" parameterType="com.project.springboot.signuplogin.Authority">
+		INSERT INTO AUTHORITY
+		VALUES (
+		#{userName},
+		#{authorityName}
+		)
+	</insert>
+	 <update id="resetFailCnt" parameterType="String">
+	UPDATE USER_ACCOUNT
+	SET failCnt = 0
+	WHERE ID = #{id}
+</update>
+	<update id="failCntUpdate" parameterType="String" >
+	UPDATE USER_ACCOUNT
+	SET failCnt = isnull(failCnt, 0)+1 
+	WHERE ID = #{id}
+	</update>
+<select id="getFailCnt"  parameterType="String" resultType="com.project.springboot.signuplogin.Account">
+		SELECT failCnt, isEnabled FROM USER_ACCOUNT
+		WHERE ID= #{id}
+	</select>
+	
+	<update id="changeEnabled" parameterType="String" >
+		UPDATE USER_ACCOUNT 
+		SET isEnabled = (CASE isEnabled WHEN 0 THEN 1 ELSE 0 END) 
+		WHERE ID = #{id}
+	</update>
+</mapper>
