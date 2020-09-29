@@ -20,7 +20,7 @@ public class MyController
 {
 	@Autowired
 	BbsDao dao;
-	int listCount =5;
+	int listCount =10;
 	int pagecount= 5;
 	
 	//MemberDao Mdao;
@@ -41,25 +41,33 @@ public class MyController
 	}
 	@RequestMapping("/notice")
 	public String notice(HttpServletRequest request ,Model model){
-		System.out.println("page");
-		String page = request.getParameter("page");
-		System.out.println(page);
-		int curPage = Integer.parseInt(page);
+		System.out.println("notice");
+				
+		int nPage = 1;
+		try {
+			String page = request.getParameter("page");
+			System.out.println("Page :" +page);
+			nPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+				
 		BbsPage total = dao.articlePage(); 
 		model.addAttribute("total",dao.articlePage());
 		int totalCount = total.getTotal();
-		System.out.println(total);
-		System.out.println(totalCount);
+		//System.out.println(total);
+		System.out.println("total"+totalCount);
 		PageInfo info = new PageInfo();
-		BpageInfo binfo = info.pInfo(totalCount,curPage);
-		int nStart = (curPage -1) * listCount;
-		System.out.println(curPage);
+		BpageInfo binfo = info.pInfo(totalCount,nPage);
+		int nStart = (nPage -1) * listCount;
+		System.out.println("현재 페이지는"+nPage);
 		List<BbsDto> notice = dao.notice(nStart);
-		System.out.println("notice");
+		
 		System.out.println(binfo);
 		model.addAttribute("notice", notice);
 		model.addAttribute("page", binfo);
-		System.out.println(notice);
+		System.out.println("글목록"+notice);
 		return "public/notice";
 	}
 	@RequestMapping("/noticeview")

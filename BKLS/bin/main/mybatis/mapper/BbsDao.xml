@@ -26,7 +26,7 @@
 	<select id="notice"
 		resultType="com.project.springboot.dto.BbsDto">
 		select * from NOTICE_LIST
-		order by notice_num asc , notice_date desc
+		order by notice_num desc , notice_date asc
 		offset  #{nStart} rows
 		fetch next 10 rows only
 	</select>

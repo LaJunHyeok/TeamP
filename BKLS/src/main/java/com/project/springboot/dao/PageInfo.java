@@ -37,7 +37,7 @@ public class PageInfo {
 		pinfo.setListCount(listCount);
 		pinfo.setTotalPage(totalPage);
 		pinfo.setTotalCount(totalCount);
-		pinfo.setCurPage(totalCount);
+		pinfo.setCurPage(curPage);
 		pinfo.setPageCount(pageCount);
 		pinfo.setStartPage(startPage);
 		pinfo.setEndPage(endPage);
