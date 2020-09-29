@@ -2,12 +2,15 @@ package com.project.springboot;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.springboot.dao.BbsDao;
+import com.project.springboot.dao.userListDao;
 import com.project.springboot.dto.BbsDto;
 
 @Controller
@@ -15,6 +18,9 @@ public class MyController
 {
 	@Autowired
 	BbsDao dao;
+	@Autowired
+	userListDao uDao;
+	
 	//MemberDao Mdao;
 
 	//���� ����¡
@@ -78,11 +84,7 @@ public class MyController
 		//model.addAttribute("notice", dao.notice());
 		return "admin/noticemodify";
 	}
-
-
-
-
-
+	
 	//������ �������� �ۼ� ������ 
 	@RequestMapping("/admin/writeForm")
 	public String adminWriteForm() {
@@ -145,12 +147,22 @@ public class MyController
 		return "#";
 	}
 
-	//������ ȸ������ ������ 
-	@RequestMapping("/admin/list")
+	// admin user manage mapping
+	@RequestMapping("/admin/userList")
 	public String userlistPage(Model model) {
-		model.addAttribute("list", dao.listDao());
-		return "admin/ManageForMem";
+		model.addAttribute("userList", uDao.userList());
+		return "admin/userList";
 	}
-
-
+	
+	@RequestMapping("/admin/userBan")
+	public String userBan(HttpServletRequest request, Model model) {
+		uDao.userBan(request.getParameter("user_id"));
+		return "redirect:userList";
+	}
+	
+	@RequestMapping("/admin/userRestore")
+	public String userRestore(HttpServletRequest request, Model model) {
+		uDao.userRestore(request.getParameter("user_id"));
+		return "redirect:userList";
+	}
 }

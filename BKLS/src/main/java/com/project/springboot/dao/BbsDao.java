@@ -18,4 +18,5 @@ public interface BbsDao {
 	public int noticedelete(int num);
 	public int noticeupdate(int num,String title,String content);
 	public String noticemodify(int num);
+	
 }
