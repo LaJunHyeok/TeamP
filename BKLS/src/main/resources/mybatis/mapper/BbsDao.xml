@@ -19,29 +19,65 @@
 		NOTICE_LIST(NOTICE_NUM,NOTICE_ID,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_DATE)
 		VALUES(NEXT VALUE FOR NOTICE_SEQ,'admin',#{param1},#{param2},SYSDATETIME());
 	</insert>
+	
+	<insert id="writeDao1">
+		insert into
+		help_list(help_num, help_id, help_title, help_content, help_date, help_group, help_open, help_hit, help_step)
+		values(help_num, )
+	</insert>
 
 	<delete id="deleteDao">
 		delete from simple_bbs where id=#{param1}
 	</delete>
+	
 	<select id="notice"
 		resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list order by notice_num
 	</select>
+	
+	<select id="help"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list order by help_num
+	</select>
+	
 	<select id="noticeview"
 		resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list where notice_num = #{param1}
 	</select>
+	
+	<select id="helpview"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list where help_num = #{param1}
+	</select>
+	
 	<delete id="noticedelete">
 		delete from notice_list where notice_num =#{param1}
 	</delete>
+	
+	<delete id ="helpdelete">
+		delete from help_list where help_num = #{param1}
+	</delete>
+	
 	<update id="noticeupdate">
 		update notice_list set notice_title=#{param2}, notice_content=#{param3}
 		where notice_num =#{param1}
 	</update>
+	
+	<update id="helpupdate">
+		update help_list set help_title=#{param2}, help_content=#{param3}
+		where help_num =#{param1}
+	</update>
+	
 	<update id="noticehit">
 		update notice_list set notice_hit = notice_hit + 1 
 		where notice_num =#{param1}
 	</update>
+	
+	<update id="helphit">
+		update help_list set help_hit = help_hit + 1
+		where help_num =#{param1}
+	</update>
+	
 	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list where notice_title=#{param1}
 	</select>
