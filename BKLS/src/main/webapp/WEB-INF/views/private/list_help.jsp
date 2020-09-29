@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>SAFE SEOUL</title>
 </head>
 <header>
@@ -14,8 +14,8 @@
 </header>
 <body>
 
-<!-- 건의/민원 게시판 글 작성 페이지입니다.  -->
-<!-- 회원만 작성 가능 -->
+<!-- 민원 게시판 상세보기 페이지입니다.  -->
+<!-- 전체 조회 가능 -->
 
 <table width="500" cellpadding="0" cellspacing="0" border="1">
 	<form action="write" method="post">
