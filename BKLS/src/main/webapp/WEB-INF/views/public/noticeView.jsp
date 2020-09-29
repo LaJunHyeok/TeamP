@@ -68,7 +68,7 @@
 				<a href="noticemodify?num=${dto.notice_num}">글수정</a>
 			</button>
 			<button>
-				<a href="notice">목록보기</a>
+				<a href="notice?page=1">목록보기</a>
 			</button>
 			</p>
 			<!--</c:forEach>-->
