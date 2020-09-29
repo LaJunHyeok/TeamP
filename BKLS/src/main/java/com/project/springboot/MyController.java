@@ -22,7 +22,7 @@ public class MyController
 	BbsDao dao;
 	int listCount =5;
 	int pagecount= 5;
-	PageInfo info;
+	
 	//MemberDao Mdao;
 
 	//���� ����¡
@@ -45,19 +45,20 @@ public class MyController
 		String page = request.getParameter("page");
 		System.out.println(page);
 		int curPage = Integer.parseInt(page);
-		int total = dao.articlePage(); 
+		BbsPage total = dao.articlePage(); 
 		model.addAttribute("total",dao.articlePage());
-		total.setTotal(total);
-		
+		int totalCount = total.getTotal();
 		System.out.println(total);
-		
-		BpageInfo binfo = info.pInfo(curPage);
+		System.out.println(totalCount);
+		PageInfo info = new PageInfo();
+		BpageInfo binfo = info.pInfo(totalCount,curPage);
 		int nStart = (curPage -1) * listCount;
 		System.out.println(curPage);
 		List<BbsDto> notice = dao.notice(nStart);
 		System.out.println("notice");
+		System.out.println(binfo);
 		model.addAttribute("notice", notice);
-		model.addAttribute("page", binfo.getCurPage());
+		model.addAttribute("page", binfo);
 		System.out.println(notice);
 		return "public/notice";
 	}

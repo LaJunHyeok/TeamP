@@ -4,10 +4,10 @@ import com.project.springboot.dto.BbsPage;
 import com.project.springboot.dto.BpageInfo;
 
 public class PageInfo {
-	public BpageInfo pInfo(int curPage) {
+	public BpageInfo pInfo(int totalCount,int curPage) {
 		BbsDao dao = null;
 		int nPage=1;
-		int totalCount = 10;
+		
 		System.out.println(totalCount);
 
 		int listCount =10;
@@ -33,7 +33,7 @@ public class PageInfo {
 		if(endPage > totalPage) {
 			endPage = totalPage;
 		}
-		BpageInfo pinfo = null;
+		BpageInfo pinfo = new BpageInfo();
 		pinfo.setListCount(listCount);
 		pinfo.setTotalPage(totalPage);
 		pinfo.setTotalCount(totalCount);
