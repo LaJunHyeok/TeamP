@@ -41,7 +41,7 @@
 								<div class="input-group-prepend">
 									<!-- <span class="input-group-text">@</span> -->
 								</div>
-								<input type="text" class="form-control" name="j_username"
+								<input type="text" class="form-control" name="id"
 									placeholder="필수 입력 값" required>
 								<div class="invalid-feedback" style="width: 100%;">Your
 									username is required.</div>
@@ -50,7 +50,7 @@
 
 						<div class="mb-3">
 							<label for="pw">비밀번호</label> <input type="password"
-								class="form-control" name="j_password" placeholder="필수 입력 값" value=""
+								class="form-control" name="password" placeholder="필수 입력 값" value=""
 								required>
 							<div class="invalid-feedback">Valid first name is required.
 							</div>
@@ -80,7 +80,7 @@
 							<div class="invalid-feedback">Please enter your shipping
 								address.</div>
 						</div>
-
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 						<hr class="mb-4">
 
 						<!-- <hr class="mb-4">  -->

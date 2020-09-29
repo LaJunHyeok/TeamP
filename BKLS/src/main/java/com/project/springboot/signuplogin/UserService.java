@@ -8,6 +8,5 @@ import com.project.springboot.dto.UserInfoDto;
 
 @Mapper
 public interface UserService {
-	public int login(String email);
 	public int join(Map<String,String> map);
 }

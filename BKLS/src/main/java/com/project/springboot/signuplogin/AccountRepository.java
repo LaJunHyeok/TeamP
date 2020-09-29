@@ -3,6 +3,7 @@ package com.project.springboot.signuplogin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.project.springboot.signuplogin.AccountMapper;
@@ -14,6 +15,8 @@ public class AccountRepository {
 	@Autowired
 	AccountMapper accountMapper;
 
+	
+	
 	public Account save(Account account, Authority authority ) {
 		accountMapper.insertUser(account);
 		accountMapper.insertUserAuthority(authority);

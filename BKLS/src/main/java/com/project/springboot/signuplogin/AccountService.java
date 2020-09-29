@@ -13,17 +13,26 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.springboot.signuplogin.AccountRepository;
+
+import lombok.RequiredArgsConstructor;
+
 import com.project.springboot.signuplogin.Account;
 
 @Service
+@RequiredArgsConstructor
 public class AccountService implements UserDetailsService{
 
 	@Autowired
-	AccountRepository accounts;
-
+	private AccountRepository accounts;
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	
 	Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Override
@@ -56,5 +65,20 @@ public class AccountService implements UserDetailsService{
 		
 		return authorities; 
 
+	}
+	
+	
+	
+	public Account save(Account account,Authority authority) {
+		account.setPassword(encoder.encode(account.getPassword()));
+		account.setAccountNonExpired(true);
+		account.setAccountNonLocked(true);
+		account.setCredentialsNonExpired(true);
+		account.setFailCnt(0);
+		account.setEnabled(true);
+		authority.setAuthorityName("ROLE_USER");
+		
+		return accounts.save(account, authority);
+		
 	}
 }

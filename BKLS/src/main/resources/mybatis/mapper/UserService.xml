@@ -5,13 +5,9 @@
 	
 <mapper namespace="com.project.springboot.signuplogin.UserService">
 
-	<select id="login" resultType="com.project.springboot.dto.UserInfoDto">
-		select * from USER_TEST1 where email = #{0}
-	</select>
-
 	<insert id="join" parameterType="java.util.HashMap">
-		insert into USER_TEST1(email,password)
-			values (#{item1}, #{item2})
+		insert into USER_INFO(id,password,name,email,address,date,enabled)
+			values (#{item1}, #{item2},#{item3},#{item4},#{item5},GETDATE(),1)
 	</insert>
 
 </mapper>

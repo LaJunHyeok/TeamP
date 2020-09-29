@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,9 @@ import com.project.springboot.dao.BbsDao;
 import com.project.springboot.dto.BbsDto;
 import com.project.springboot.signuplogin.AccountMapper;
 import com.project.springboot.signuplogin.AccountService;
+import com.project.springboot.signuplogin.Authority;
 import com.project.springboot.signuplogin.UserService;
+import com.project.springboot.signuplogin.Account;
 
 
 @Controller
@@ -29,12 +32,16 @@ public class MyController
 	   private BbsDao dao;
 	   @Autowired
 	   private UserService user;
-	   
+
 	   @Autowired
 		AccountService accountService;
-
 		@Autowired
 		AccountMapper accountMapper;
+		
+		Authority authority;
+		
+		@Autowired
+		private PasswordEncoder encoder;
 		
 		Logger log = LoggerFactory.getLogger(this.getClass());
 	   
@@ -106,18 +113,33 @@ public class MyController
 	    }
 
 	    // 가입확인 처리
+	    
 	    @RequestMapping("/public/joinOk")
 		public String joinOk(HttpServletRequest request,Model model) {
-	    	String sName = request.getParameter("j_username");
-	    	String sPassword = request.getParameter("j_password");
-	    	
+	    	String id= request.getParameter("id");
+	    	String password = request.getParameter("password");
+	    	String name = request.getParameter("name");
+	    	String email= request.getParameter("email");
+	    	String address = request.getParameter("address");
 	    	Map<String,String> map = new HashMap<String,String>();
-	    	map.put("item1",sName);
-	    	map.put("item2",sPassword);
+	    	
+	    	map.put("item1",id);
+	    	map.put("item2",encoder.encode(password));
+	    	map.put("item3",name);
+	    	map.put("item4",email);
+	    	map.put("item5",address);
 	    	System.out.println(map);
 	    	user.join(map);
+	    
+	    	Account account=new Account();
+	    	Authority authority = new Authority();
+	    	account.setId(id);
+	    	account.setPassword(password);
+	    	authority.setUserName(id);
+	    	accountService.save(account, authority);
 			return "security/loginForm";
 	    }
+
 	 // 로그인 페이징
 	    @RequestMapping("/security/loginForm")
 		public String loginForm(Model model, HttpServletRequest req) {

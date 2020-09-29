@@ -11,12 +11,14 @@
 		SELECT authority_name 
 		FROM AUTHORITY WHERE userName=#{userName}
 	</select>
-
+	
+	
 	<insert id="insertUser" parameterType="com.project.springboot.signuplogin.Account">
 		INSERT USER_ACCOUNT
 		VALUES (
 		#{id},
 		#{password},
+		#{failCnt},
 		#{isAccountNonExpired},
 		#{isAccountNonLocked},
 		#{isCredentialsNonExpired},

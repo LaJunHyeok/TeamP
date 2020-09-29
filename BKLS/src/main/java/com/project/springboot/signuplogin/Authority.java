@@ -1,5 +1,6 @@
 package com.project.springboot.signuplogin;
 
+
 public class Authority{
 	private String userName;
 	private String authorityName;
