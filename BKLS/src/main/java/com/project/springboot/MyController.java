@@ -2,19 +2,27 @@ package com.project.springboot;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.springboot.dao.BbsDao;
+import com.project.springboot.dao.PageInfo;
 import com.project.springboot.dto.BbsDto;
+import com.project.springboot.dto.BbsPage;
+import com.project.springboot.dto.BpageInfo;
 
 @Controller
 public class MyController
 {
 	@Autowired
 	BbsDao dao;
+	int listCount =5;
+	int pagecount= 5;
+	PageInfo info;
 	//MemberDao Mdao;
 
 	//���� ����¡
@@ -32,10 +40,24 @@ public class MyController
 		return "redirect:/notice";
 	}
 	@RequestMapping("/notice")
-	public String notice(Model model){
-		List<BbsDto> notice = dao.notice();
+	public String notice(HttpServletRequest request ,Model model){
+		System.out.println("page");
+		String page = request.getParameter("page");
+		System.out.println(page);
+		int curPage = Integer.parseInt(page);
+		int total = dao.articlePage(); 
+		model.addAttribute("total",dao.articlePage());
+		total.setTotal(total);
+		
+		System.out.println(total);
+		
+		BpageInfo binfo = info.pInfo(curPage);
+		int nStart = (curPage -1) * listCount;
+		System.out.println(curPage);
+		List<BbsDto> notice = dao.notice(nStart);
 		System.out.println("notice");
 		model.addAttribute("notice", notice);
+		model.addAttribute("page", binfo.getCurPage());
 		System.out.println(notice);
 		return "public/notice";
 	}

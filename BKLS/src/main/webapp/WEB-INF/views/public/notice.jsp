@@ -82,7 +82,67 @@ function showButton(){
 					<input	class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
 			</form>
 			</p>
+			
 		</div>
+		<tr>
+				<nav aria-label="..." class="row justify-content-md-center">
+						<ul class="pagination">
+						<c:forEach items="${page}" var="page">
+							<c:choose>
+								<c:when test="${(page.curPage -1) <1}">
+									<li class="page-item disabled"><span class="page-link">&lt;&lt;</span></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="notice?curPage=1">&lt;&lt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${(page.curPage -1) <1}">
+									<li class="page-item disabled"><span class="page-link">&lt;</span></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="notice?curPage=${page.curPage - 1}">&lt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:forEach var="fEach" begin="${page.startPage}"
+								end="${page.endPage}" step="1">
+								<c:choose>
+									<c:when test="${page.curPage == fEach}">
+										<li class="page-item"><a class="page-link" href="#">${fEach}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link"
+											href="notice?curPage=${fEach}">${fEach}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${page.curPage >= page.totalPage}">
+									<li class="page-item disabled"><span class="page-link">&gt;</span></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="notice?curPage=${page.curPage + 1}">&gt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${page.curPage == page.totalPage}">
+									<li class="page-item"><a class="page-link">&gt;&gt;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="notice?curPage=${page.totalPage}">&gt;&gt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+						</ul>
+						
+					</nav>
+					</div></td>
+					
+			</tr>
 	</div>
 	<!--  <a id ="openkub" onchange="showButton();"></a>-->
 	<!-- DB만든후 BdsDao.xml 수정 -->

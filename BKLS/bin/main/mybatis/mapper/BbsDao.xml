@@ -25,7 +25,10 @@
 	</delete>
 	<select id="notice"
 		resultType="com.project.springboot.dto.BbsDto">
-		select * from notice_list order by notice_num
+		select * from NOTICE_LIST
+		order by notice_num asc , notice_date desc
+		offset  #{nStart} rows
+		fetch next 10 rows only
 	</select>
 	<select id="noticeview"
 		resultType="com.project.springboot.dto.BbsDto">
@@ -44,6 +47,10 @@
 	</update>
 	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list where notice_title=#{param1}
+	</select>
+	<select id="articlePage"
+		resultType="com.project.springboot.dto.BbsPage">
+		select count(*)as total from notice_list
 	</select>
 
 </mapper>
