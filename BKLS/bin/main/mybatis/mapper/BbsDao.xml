@@ -22,8 +22,8 @@
 	
 	<insert id="writeDao1">
 		insert into
-		help_list(help_num, help_id, help_title, help_content, help_date, help_group, help_open, help_hit, help_step)
-		values(help_num, )
+		help_list(help_title, help_content)
+		values(#{param1}, #{param2})
 	</insert>
 
 	<delete id="deleteDao">

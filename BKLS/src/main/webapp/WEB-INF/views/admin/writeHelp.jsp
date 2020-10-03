@@ -18,8 +18,14 @@
 
 </header>
 <body>
+	
+	<br>
+	<p style="text-align: center">
+	<font size="6" color="#5bc0de">건의사항 작성</font> <br>	
 
-	<form action="write" method="post">
+	<div class="container">
+	<div class="row justify-content-center">
+	<form action="write1" method="post">
 		
 		<div class="mb-3">
 			<label for="제목">제목</label> <input type="text" class="form-control"
@@ -33,12 +39,21 @@
 			<script>
 				CKEDITOR.replace('editor1');
 			</script>
+		</div>	
+		
+		<div class="container">
+			<div class="row justify-content-end">
+				<div class="btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-info">
+						<input type="checkbox"> 공개 / 비공개
+					</label>&nbsp;&nbsp;
+				</div>	
+				<button type="submit" class="btn btn-info">작성 완료</button>
+			</div>
 		</div>
 	</form>
-
-	<hr class="mb-4">
-	<button class="btn btn-info btn-lg btn-block" id="write" type="submit"
-		value="글작성">작성 완료</button>
+	</div>	
+	</div>	
 </body>
 <footer>
     <!-- footer -->
