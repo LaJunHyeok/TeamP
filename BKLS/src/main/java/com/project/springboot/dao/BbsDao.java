@@ -35,6 +35,7 @@ public interface BbsDao {
 	public int helphit(int num1);
 	
 	public List<BbsDto> noticesearch(String title);
+	public List<BbsDto> help_search(String title1);
 	
 	public BbsPage articlePage();
 }

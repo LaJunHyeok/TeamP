@@ -78,5 +78,9 @@
 	<select id="articlePage" resultType="com.project.springboot.dto.BbsPage">
 		select count(*) as total from help_list
 	</select>
+	
+	<select id="help_search" resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list where help_title= #{param1}
+	</select>
 
 </mapper>
