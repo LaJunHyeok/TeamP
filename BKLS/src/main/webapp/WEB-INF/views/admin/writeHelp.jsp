@@ -29,12 +29,12 @@
 		
 		<div class="mb-3">
 			<label for="제목">제목</label> <input type="text" class="form-control"
-				name="help_title" placeholder="" value="" required>
+				name="title1" placeholder="" value="" required>
 		</div>
 
 		<div class="mb-3">
 			<label for="내용">내용</label>
-			<textarea class="form-control" id="editor1" name="help_content" rows="10"
+			<textarea class="form-control" id="editor1" name="content1" rows="10"
 				placeholder="" value="" required></textarea>
 			<script>
 				CKEDITOR.replace('editor1');

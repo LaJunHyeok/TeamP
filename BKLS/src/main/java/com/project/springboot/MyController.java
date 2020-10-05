@@ -66,6 +66,14 @@ public class MyController
 
 		return "redirect:/notice";
 	}
+	
+	@RequestMapping("/helpdelete")
+	public String helpdelete(Model model, int num1) {
+		dao.helpdelete(num1);
+		
+		return "redirect:/help";
+	}
+	
 	@RequestMapping("/noticeupdate")
 	public String update(Model model ,String num,String title,String content){
 		int bnum = Integer.parseInt(num);

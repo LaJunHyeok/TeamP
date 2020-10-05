@@ -22,6 +22,7 @@ public interface BbsDao {
 	public List<BbsDto> helpview(int num1);
 	
 	public int noticedelete(int num);
+	public int helpdelete(int num1);
 	
 	public int noticeupdate(int num,String title,String content);
 	public int helpupdate(int num1, String title1, String content1);

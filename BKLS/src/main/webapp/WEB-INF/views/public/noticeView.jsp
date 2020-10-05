@@ -17,12 +17,13 @@
 
 	<!-- 공지 게시판 상세보기 페이지입니다.  -->
 	<!-- 전체 조회 가능 -->
+	<c:forEach items="${notice}" var="dto">
 	<div class="container">
 		<div class="row justify-content-center">
 			<p align="center">
 			<table class="table table-dark" cellpadding="0" cellspacing="0"
 				border="1">
-				<!--<c:forEach items="${notice}" var="dto">-->
+				
 				<thead>
 					<tr>
 						<h2>공지사항 게시판 입니다</h2>
@@ -76,7 +77,7 @@
 				<a href="notice">목록보기</a>
 			</button>
 			</p>
-			<!--</c:forEach>-->
+			</c:forEach>
 
 		</div>
 	</div>

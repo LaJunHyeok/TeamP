@@ -4,16 +4,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.springboot.dao.BbsDao">
-	<select id="listDao"
-		resultType="com.project.springboot.dto.BbsDto">
-		select * from simple_bbs order by id desc
-	</select>
-
-	<select id="viewDao"
-		resultType="com.project.springboot.dto.BbsDto">
-		select * from simple_bbs where id = #{param1}
-	</select>
-
 	<insert id="writeDao">
 		INSERT INTO
 		NOTICE_LIST(NOTICE_NUM,NOTICE_ID,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_DATE)
@@ -22,13 +12,9 @@
 	
 	<insert id="writeDao1">
 		insert into
-		help_list(help_title, help_content)
-		values(#{param1}, #{param2})
+		help_list (help_num, help_id, help_title, help_content, help_date, help_group)
+		values(next value for help_seq,'test',#{param1},#{param2},sysdatetime(),'0');
 	</insert>
-
-	<delete id="deleteDao">
-		delete from simple_bbs where id=#{param1}
-	</delete>
 	
 	<select id="notice"
 		resultType="com.project.springboot.dto.BbsDto">
