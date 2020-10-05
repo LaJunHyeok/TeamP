@@ -2,19 +2,26 @@ package com.project.springboot;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.springboot.dao.BbsDao;
+import com.project.springboot.dao.PageInfo;
 import com.project.springboot.dto.BbsDto;
+import com.project.springboot.dto.BbsPage;
+import com.project.springboot.dto.BpageInfo;
 
 @Controller
 public class MyController
 {
 	@Autowired
 	BbsDao dao;
+	int pageCount = 5;
+	int listCount = 10;
 	//MemberDao Mdao;
 
 	
@@ -132,11 +139,29 @@ public class MyController
 	}
 
 	@RequestMapping("/help")
-	public String help(Model model) {
-		List<BbsDto> help = dao.help();
+	public String help(HttpServletRequest request, Model model) {
+		
+		int nPage = 1;
+		try {
+			String page = request.getParameter("page");
+			System.out.println("Page :" +page);
+			nPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			
+		}
+		
+				
+		BbsPage total = dao.articlePage(); 
+		model.addAttribute("total",dao.articlePage());
+		int totalCount = total.getTotal();	
+		PageInfo info = new PageInfo();
+		BpageInfo binfo = info.pInfo(totalCount,nPage);
+		int nStart = (nPage -1) * listCount;
+		List<BbsDto> help = dao.help(nStart);
+		
+		System.out.println(binfo);
 		model.addAttribute("help", help);
-
-		System.out.println(help);
+		model.addAttribute("page", binfo);
 		return "public/help";
 	}
 	

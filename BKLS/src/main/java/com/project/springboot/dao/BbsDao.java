@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.springboot.dto.BbsDto;
+import com.project.springboot.dto.BbsPage;
 
 @Mapper	
 public interface BbsDao {
@@ -16,7 +17,7 @@ public interface BbsDao {
 	public int deleteDao(String id);
 	
 	public List<BbsDto> notice();
-	public List<BbsDto> help();
+	public List<BbsDto> help(int curPage);
 	
 	public List<BbsDto> noticeview(int num);
 	public List<BbsDto> helpview(int num1);
@@ -34,4 +35,6 @@ public interface BbsDao {
 	public int helphit(int num1);
 	
 	public List<BbsDto> noticesearch(String title);
+	
+	public BbsPage articlePage();
 }

@@ -23,7 +23,10 @@
 	
 	<select id="help"
 		resultType="com.project.springboot.dto.BbsDto">
-		select * from help_list order by help_num
+		select * from help_list
+		order by help_num desc, help_date asc
+		offset #{nStart} rows
+		fetch next 10 rows only
 	</select>
 	
 	<select id="noticeview"
@@ -70,6 +73,10 @@
 	
 	<select id="noticetotalCount" resultType="com.project.springboot.dto.BbsDto">
 		SELECT COUNT(*) FROM NOTICE_LIST;
+	</select>
+	
+	<select id="articlePage" resultType="com.project.springboot.dto.BbsPage">
+		select count(*) as total from help_list
 	</select>
 
 </mapper>
