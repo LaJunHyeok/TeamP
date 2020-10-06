@@ -120,6 +120,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		request.setAttribute(exceptionMsgName, errormsg);
 		
 		log.info(" exception.getMessage() : " + exception.getMessage() );
+		log.info(" exception.getMessage() : " + loginIdName +":"+loginPasswordName );
 		
 		request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
 	}

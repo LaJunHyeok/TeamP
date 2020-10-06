@@ -53,9 +53,9 @@
          <br>
      	 
          <label for="inputID" class="sr-only">ID</label>
-         <input type="text" id="username" name="username" placeholder="아이디" class="form-control" placeholder="ID" required autofocus>
+         <input type="text"  name="username" placeholder="아이디" class="form-control" placeholder="ID" required autofocus>
          <label for="inputPassword" class="sr-only">Password</label>
-         <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required>
+         <input type="password"  name="password" class="form-control" placeholder="비밀번호" required>
         </p>
         <div class="container">
 
