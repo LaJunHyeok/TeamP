@@ -1,6 +1,7 @@
 package com.project.springboot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.springboot.dao.BbsDao;
+import com.project.springboot.dao.PageInfo;
 import com.project.springboot.dto.BbsDto;
+import com.project.springboot.dto.BbsPage;
+import com.project.springboot.dto.BpageInfo;
 import com.project.springboot.signuplogin.AccountMapper;
 import com.project.springboot.signuplogin.AccountService;
 import com.project.springboot.signuplogin.Authority;
@@ -28,148 +32,224 @@ import com.project.springboot.signuplogin.Account;
 public class MyController
 {
 
-	   @Autowired
-	   private BbsDao dao;
-	   @Autowired
-	   private UserService user;
+	@Autowired
+	private BbsDao dao;
+	int listCount =10;
+	int pagecount= 5;
+	@Autowired
+	private UserService user;
 
-	   @Autowired
-		AccountService accountService;
-		@Autowired
-		AccountMapper accountMapper;
-		
-		Authority authority;
-		
-		@Autowired
-		private PasswordEncoder encoder;
-		
-		Logger log = LoggerFactory.getLogger(this.getClass());
-	   
-	   //¸ŞÀÎ ÆäÀÌÂ¡
-	    @RequestMapping("/")
-	    public String root() throws Exception{	    	
-	    	//MyBatis : SimpleBBS
-	        return "public/mainPage";
-	    }
-	   
-	    //--------°øÁö»çÇ× ÆäÀÌÁö ------------
-	    //°øÁö»çÇ× ¸®½ºÆ® ÆäÀÌÁö
-	    @RequestMapping("/public/notice")
-	    public String notice(Model model){
-	    	
-	    	
-	    	model.addAttribute("notice",dao.notice());
-	    	return "public/notice";
-	    }
-	    //°ü¸®ÀÚ °øÁö»çÇ× ÀÛ¼º ÆäÀÌÁö 
-	    @RequestMapping("/admin/writeForm")
-	    public String adminWriteForm() {
+	@Autowired
+	AccountService accountService;
+	@Autowired
+	AccountMapper accountMapper;
 
-	    	return "admin/writeFormAdmin";
-	    }
-	  //°øÁö»çÇ× »ó¼¼º¸±â ÆäÀÌÁö (¸¸µé¾î¾ßÇÔ)######################
-	    @RequestMapping("/public/confirmboard")
-	    public String confirmBoard() {
+	Authority authority;
 
-	    	return "public/confirmboard";
-	    }
-	  //---------ÁÖº¯ ÆÄÃâ¼Ò ¾È³»--------------
-	    @RequestMapping("/public/navi")
-	    public String navi(){
-	        return "public/navigator";
-	    }
-	  
-	   
-	   //--------°ÇÀÇ,¹Î¿ø ÆäÀÌÁö ----------- 
-	    //°ÇÀÇ.¹Î¿ø ±Û ÀÛ¼º ÆäÀÌÁö
-	   @RequestMapping("/private/writeForm")
-	    public String writeForm(){
-	        return "private/writeForm";
-	    }
-	  
-	  //¹Î¿ø,°ÇÀÇ ¸®½ºÆ® ÆäÀÌÁö 
-	   @RequestMapping("/public/help")
-	    public String help(){
-	        return "public/help";
-	    }
-	 //¹Î¿ø,°ÇÀÇ »ó¼¼º¸±â ÆäÀÌÁö #####################
-	   @RequestMapping("/private/confirmHelp")
-	    public String confirmHelp(){
-	        return "private/confirmHelp";
-	    }
-	   
-	   //------½Ã°¢È­ ÀÚ·á ÆäÀÌÁö --------------
-	 //½Ã°¢È­ ÀÚ·á º¸±â ÆäÀÌÁö (ÆäÀÌÁö ¸¸µé¾î¾ß ÇÔ)##################
-	   @RequestMapping("public/dataView")
-	    public String dataView(){
-	        return "public/dataView";
-	    }  
-	   
-	  //-------·Î±×ÀÎ,È¸¿ø°¡ÀÔ ÆäÀÌÂ¡ ------------
-	   // È¸¿ø°¡ÀÔ ÆäÀÌÁö
-	    @RequestMapping("/security/joinForm")
-	    public String dispSignup() {
-	        return "security/joinForm";
-	    }
+	@Autowired
+	private PasswordEncoder encoder;
 
-	    // °¡ÀÔÈ®ÀÎ Ã³¸®
-	    
-	    @RequestMapping("/public/joinOk")
-		public String joinOk(HttpServletRequest request,Model model) {
-	    	String id= request.getParameter("id");
-	    	String password = request.getParameter("password");
-	    	String name = request.getParameter("name");
-	    	String email= request.getParameter("email");
-	    	String address = request.getParameter("address");
-	    	Map<String,String> map = new HashMap<String,String>();
-	    	
-	    	map.put("item1",id);
-	    	map.put("item2",encoder.encode(password));
-	    	map.put("item3",name);
-	    	map.put("item4",email);
-	    	map.put("item5",address);
-	    	System.out.println(map);
-	    	user.join(map);
-	    
-	    	Account account=new Account();
-	    	Authority authority = new Authority();
-	    	account.setId(id);
-	    	account.setPassword(password);
-	    	authority.setUserName(id);
-	    	accountService.save(account, authority);
-			return "security/loginForm";
-	    }
+	Logger log = LoggerFactory.getLogger(this.getClass());
 
-	 // ·Î±×ÀÎ ÆäÀÌÂ¡
-	    @RequestMapping("/security/loginForm")
-		public String loginForm(Model model, HttpServletRequest req) {
-			return "security/loginForm";
-	    }
+	
+	@RequestMapping("/")
+	public String root() throws Exception{	    	
+		//MyBatis : SimpleBBS
+		return "public/mainPage";
+	}
 
-	 // ·Î±×ÀÎ °á°úÆäÀÌÁö
-	    @RequestMapping("/security/loginSuccess")
-		public String loginOk() {
-	    	
-			return "security/loginSuccess";
-	    }
-	 // LOGIN Fail	
-		@GetMapping("/loginFail")
-		@ResponseBody
-		public String loginFail() {
-			return "Fail !";
+	@RequestMapping("/notice")
+	public String notice(HttpServletRequest request ,Model model){
+		System.out.println("notice");
+
+		int nPage = 1;
+		try {
+			String page = request.getParameter("page");
+			System.out.println("Page :" +page);
+			nPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			System.out.println("error");
+			e.printStackTrace();
 		}
-	 // ·Î±×¾Æ¿ô Ã³¸®
-	    @RequestMapping("/logout")
-		public String logout() {
-			return "public/mainPage";
-	    }
-	   
-	   //°ü¸®ÀÚ È¸¿ø°ü¸® ÆäÀÌÁö 
-	    @RequestMapping("/admin/ManageForMem")
-	    public String userlistPage(Model model) {
-	    	
-	    	return "admin/ManageForMem";
-	    }
-	  
-	    
+
+		BbsPage total = dao.articlePage(); 
+		model.addAttribute("total",dao.articlePage());
+		int totalCount = total.getTotal();
+		//System.out.println(total);
+		System.out.println("total"+totalCount);
+		PageInfo info = new PageInfo();
+		BpageInfo binfo = info.pInfo(totalCount,nPage);
+		int nStart = (nPage -1) * listCount;
+		System.out.println("í˜„ì¬ í˜ì´ì§€ëŠ”"+nPage);
+		List<BbsDto> notice = dao.notice(nStart);
+
+		System.out.println(binfo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("page", binfo);
+		System.out.println("ê¸€ëª©ë¡"+notice);
+		return "public/notice";
+	}
+	@RequestMapping("/noticeview")
+	public String noticeview(Model model, int num){
+
+		System.out.println("noticeview");
+		dao.noticehit(num);
+		List<BbsDto> noticeview = dao.noticeview(num);
+
+		model.addAttribute("notice", noticeview);
+		System.out.println(noticeview);
+		return "public/noticeView";
+	}
+	@RequestMapping("/noticedelete")
+	public String noticedelete(Model model,int num){
+
+		dao.noticedelete(num);
+		System.out.println("noticedelete");
+
+		return "redirect:/notice";
+	}
+	@RequestMapping("/noticeupdate")
+	public String update(Model model ,String num,String title,String content){
+		int bnum = Integer.parseInt(num);
+		dao.noticeupdate(bnum,title,content);
+		System.out.println("noticeupdate");
+		System.out.println(num);
+		System.out.println(title);
+		System.out.println(content);
+		return "redirect:/notice";
+	}
+	@RequestMapping("/noticemodify")
+	public String noticemodify(Model model ,int num){
+
+		System.out.println("noticemodify");
+		List<BbsDto> noticeview = dao.noticeview(num);
+		model.addAttribute("notice", noticeview);
+
+		System.out.println(noticeview);
+
+		//model.addAttribute("notice", dao.notice());
+		return "admin/noticemodify";
+	}
+	@RequestMapping("/noticesearch")
+	public String noticesearch(Model model, String title ){
+		System.out.println(title);
+		List<BbsDto> noticesearch = dao.noticesearch(title);
+		System.out.println("search");
+		model.addAttribute("notice", noticesearch);
+		System.out.println(noticesearch);
+		return "public/noticeSearch";
+	}
+
+
+
+	@RequestMapping("/admin/writeForm")
+	public String adminWriteForm() {
+
+		return "admin/writeNotice";
+	}
+
+	@RequestMapping("/public/confirmboard")
+	public String confirmBoard() {
+
+		return "public/confirmboard";
+	}
+	//---------ï¿½Öºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½--------------
+	@RequestMapping("/public/navi")
+	public String navi(){
+		return "public/navigator";
+	}
+
+
+	//--------ï¿½ï¿½ï¿½ï¿½,ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ----------- 
+	//ï¿½ï¿½ï¿½ï¿½.ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping("/private/writeForm")
+	public String writeForm(){
+		return "private/writeForm";
+	}
+
+	//ï¿½Î¿ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	@RequestMapping("/public/help")
+	public String help(){
+		return "public/help";
+	}
+	//ï¿½Î¿ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ #####################
+	@RequestMapping("/private/confirmHelp")
+	public String confirmHelp(){
+		return "private/confirmHelp";
+	}
+
+	//------ï¿½Ã°ï¿½È­ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --------------
+	//ï¿½Ã°ï¿½È­ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)##################
+	@RequestMapping("public/dataView")
+	public String dataView(){
+		return "public/dataView";
+	}  
+
+	//-------ï¿½Î±ï¿½ï¿½ï¿½,È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ ------------
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping("/security/joinForm")
+	public String dispSignup() {
+		return "security/joinForm";
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ Ã³ï¿½ï¿½
+
+	@RequestMapping("/public/joinOk")
+	public String joinOk(HttpServletRequest request,Model model) {
+		String id= request.getParameter("id");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String email= request.getParameter("email");
+		String address = request.getParameter("address");
+		Map<String,String> map = new HashMap<String,String>();
+
+		map.put("item1",id);
+		map.put("item2",encoder.encode(password));
+		map.put("item3",name);
+		map.put("item4",email);
+		map.put("item5",address);
+		System.out.println(map);
+		user.join(map);
+
+		Account account=new Account();
+		Authority authority = new Authority();
+		account.setId(id);
+		account.setPassword(password);
+		authority.setUserName(id);
+		accountService.save(account, authority);
+		return "security/loginForm";
+	}
+
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡
+	@RequestMapping("/security/loginForm")
+	public String loginForm(Model model, HttpServletRequest req) {
+		return "security/loginForm";
+	}
+
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping("/security/loginSuccess")
+	public String loginOk() {
+
+		return "security/loginSuccess";
+	}
+	// LOGIN Fail	
+	@GetMapping("/loginFail")
+	@ResponseBody
+	public String loginFail() {
+		return "Fail !";
+	}
+	// ï¿½Î±×¾Æ¿ï¿½ Ã³ï¿½ï¿½
+	@RequestMapping("/logout")
+	public String logout() {
+		return "public/mainPage";
+	}
+
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	@RequestMapping("/admin/ManageForMem")
+	public String userlistPage(Model model) {
+
+		return "admin/ManageForMem";
+	}
+
+
 }
