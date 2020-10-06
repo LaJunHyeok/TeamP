@@ -12,24 +12,30 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.project.springboot.signuplogin.AccountService;
-import com.project.springboot.signuplogin.Account;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider{
 
 	@Autowired
 	private AccountService accountService;
 	
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-
+	  // 인증에 필요한 관리자 정보 생성
+//  @Autowired
+//  public void authenticate(AuthenticationManagerBuilder auth) throws Exception{
+//	  auth.inMemoryAuthentication() //메모리에 사용자정보저장하는 메소드
+//	  	  .withUser("admin")
+//	  	  .password("{noop}1234")
+//	  	  .roles("ADMIN"); //권한설정
+//  }
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
@@ -52,8 +58,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		}else if(!account.isCredentialsNonExpired()) { // 자격 만료확인
 			throw new CredentialsExpiredException(username); 
 		}
-
-		return new UsernamePasswordAuthenticationToken(account, account, account.getAuthorities());
+		
+		
+		return new UsernamePasswordAuthenticationToken(account,account, account.getAuthorities());
 	}
 
 

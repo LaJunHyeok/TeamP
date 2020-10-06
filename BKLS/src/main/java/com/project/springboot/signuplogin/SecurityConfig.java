@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,9 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private AuthenticationFailureHandler failureHandler;
-
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 //  @Override
 //  public void configure(WebSecurity web) { // 무조건 접근 가능한 인증무시경로
 //    web.ignoring().antMatchers("/css/**","/src/**","/js/**", "/img/**","/seoul.png",
@@ -37,10 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception { 
     http
           .authorizeRequests() // 7
-            .antMatchers("/","/security/**", "/public/**", "/footer","/menubar","/**").permitAll() // 누구나 접근 허용
-            .antMatchers("/private/**").hasAnyRole("ADMIN","USER")
+            .antMatchers("/","/security/**", "/public/**", "/footer","/menubar").permitAll() // 누구나 접근 허용
+            .antMatchers("/private/**").hasAnyRole("USER","ADMIN")
             .antMatchers("/admin/**").hasRole("ADMIN") // ADMIN만 접근 가능
-            .antMatchers("/**").permitAll()
+            
         .and() 
           .formLogin()
             .loginPage("/security/loginForm") // 로그인 페이지 링크
@@ -57,13 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
   
   // 인증에 필요한 관리자 정보 생성
-  @Autowired
-  public void authenticate(AuthenticationManagerBuilder auth) throws Exception{
-	  auth.inMemoryAuthentication() //메모리에 사용자정보저장하는 메소드
-	  	  .withUser("admin")
-	  	  .password("{noop}1234")
-	  	  .roles("ADMIN"); //권한설정
-  }
+//  @Autowired
+//  public void authenticate(AuthenticationManagerBuilder auth) throws Exception{
+//	  auth.inMemoryAuthentication() //메모리에 사용자정보저장하는 메소드
+//	  	  .withUser("admin")
+//	  	  .password("{noop}1234")
+//	  	  .roles("ADMIN");//권한설정  
+//  }
   
   /*
   @Bean 

@@ -167,7 +167,7 @@ public class MyController
 	   //包府磊 雀盔包府 其捞瘤 
 	    @RequestMapping("/admin/ManageForMem")
 	    public String userlistPage(Model model) {
-	    	model.addAttribute("list", dao.listDao());
+	    	
 	    	return "admin/ManageForMem";
 	    }
 	  

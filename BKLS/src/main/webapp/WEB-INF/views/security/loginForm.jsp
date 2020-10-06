@@ -5,6 +5,7 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page import="org.springframework.security.core.Authentication"%>
 <%@ page import="com.project.springboot.signuplogin.Account" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <%
@@ -43,19 +44,19 @@
 <body>
 
 
+
    <div class="cotainer">
       <div class="row justify-content-center">
          <div class="text-center">
-         <form class="form-signin" action="/loginOk" method="post">
          <p style="text-align: center">
          <br><br>
          <font size="6" color="#5bc0de">로 그 인</font> <br>
          <br>
-     	 
+     	 <form action="/loginOk" method="post">
          <label for="inputID" class="sr-only">ID</label>
-         <input type="text"  name="username" placeholder="아이디" class="form-control" placeholder="ID" required autofocus>
+         <input type="text" id="username" name="username" placeholder="아이디" class="form-control" placeholder="ID" required autofocus>
          <label for="inputPassword" class="sr-only">Password</label>
-         <input type="password"  name="password" class="form-control" placeholder="비밀번호" required>
+         <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required>
         </p>
         <div class="container">
 
@@ -68,7 +69,8 @@
 						<c:if test="${not empty exceptionMsgName}">
 							<br>
 							<font color="red">
-								<p>${exceptionMsgName}
+								<p>
+								${exceptionMsgName}
 									<%-- ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} --%>
 								</p>
 							</font>

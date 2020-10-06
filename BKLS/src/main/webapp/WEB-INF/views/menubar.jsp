@@ -74,8 +74,8 @@
 			</div>
 		</sec:authorize>
 		<input type="hidden" name="loginRedirect" value="${loginRedirect}" />
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <a href="admin/manageForMem">관리자화면</a>
+		<sec:authorize access="hasRole('ADMIN')">
+    <a href="admin/ManageForMem">관리자화면</a>
     </sec:authorize>
 
      
