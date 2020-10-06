@@ -68,8 +68,7 @@
 	<div class="container">
 	<div class="row justify-content-center">	
 		<form class="form-inline my-2 my-md-0" action="help_search" method="post">
-			<input class="form-control mr-sm-2" name="title1" type="search" placeholder="제목으로 검색" 
-				aria-label="Search">
+			<input class="form-control mr-sm-2" name="title1" type="text" placeholder="제목으로 검색">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</div>	

@@ -204,7 +204,7 @@ public class MyController
 	@RequestMapping("/help_search")
 	public String help_search(Model model, String title1) {
 		List<BbsDto> help_search = dao.help_search(title1);
-		model.addAttribute("help","help_search");
+		model.addAttribute("help",help_search);
 		return "public/help";
 	}
 
