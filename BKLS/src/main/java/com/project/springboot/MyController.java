@@ -80,13 +80,13 @@ public class MyController
 		PageInfo info = new PageInfo();
 		BpageInfo binfo = info.pInfo(totalCount,nPage);
 		int nStart = (nPage -1) * listCount;
-		System.out.println("현재 페이지는"+nPage);
+		System.out.println("�쁽�옱 �럹�씠吏��뒗"+nPage);
 		List<BbsDto> notice = dao.notice(nStart);
 
 		System.out.println(binfo);
 		model.addAttribute("notice", notice);
 		model.addAttribute("page", binfo);
-		System.out.println("글목록"+notice);
+		System.out.println("湲�紐⑸줉"+notice);
 		return "public/notice";
 	}
 	@RequestMapping("/noticeview")
@@ -153,47 +153,113 @@ public class MyController
 
 		return "public/confirmboard";
 	}
-	//---------�ֺ� ����� �ȳ�--------------
+	//---------찾아오는 길 페이지--------------
 	@RequestMapping("/public/navi")
 	public String navi(){
 		return "public/navigator";
 	}
 
 
-	//--------����,�ο� ������ ----------- 
-	//����.�ο� �� �ۼ� ������
-	@RequestMapping("/private/writeForm")
-	public String writeForm(){
-		return "private/writeForm";
-	}
-
-	//�ο�,���� ����Ʈ ������ 
+	//--------민원 건의사항 메뉴 ----------- 
+	
+	//민원 페이지
 	@RequestMapping("/public/help")
-	public String help(){
+	public String help(HttpServletRequest request, Model model) {
+		
+		int nPage = 1;
+		try {
+			String page = request.getParameter("page");
+			System.out.println("Page :" +page);
+			nPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			
+		}
+		
+				
+		BbsPage total = dao.articlePage1(); 
+		model.addAttribute("total",dao.articlePage1());
+		int totalCount = total.getTotal();	
+		PageInfo info = new PageInfo();
+		BpageInfo binfo = info.pInfo(totalCount,nPage);
+		int nStart = (nPage -1) * listCount;
+		List<BbsDto> help = dao.help(nStart);
+		
+		System.out.println(binfo);
+		model.addAttribute("help", help);
+		model.addAttribute("page", binfo);
 		return "public/help";
 	}
-	//�ο�,���� �󼼺��� ������ #####################
-	@RequestMapping("/private/confirmHelp")
-	public String confirmHelp(){
-		return "private/confirmHelp";
+	//민원 상세 페이지##################
+	@RequestMapping("/public/helpview")
+	public String helpview(Model model, int num1){
+		 
+		System.out.println("helpview");
+		dao.helphit(num1);
+		List<BbsDto> helpview = dao.helpview(num1);
+		
+		model.addAttribute("help", helpview);
+		System.out.println(helpview);
+		return "public/helpView";
 	}
+	// 민원 글쓰기 
+		@RequestMapping("/admin/write1")
+		public String write1(String title1, String content1) {
+			dao.writeDao1(title1, content1);
+			return "redirect:/help";
+		}
+	//민원 글작성 업데이트
+	@RequestMapping("/helpupdate")
+	public String update1(Model model ,String num1,String title1,String content1){
+		int bnum1 = Integer.parseInt(num1);
+		dao.helpupdate(bnum1,title1,content1);
+		System.out.println("helpupdate");
+		System.out.println(num1);
+		System.out.println(title1);
+		System.out.println(content1);
+		return "redirect:/public/help";
+	}
+	//민원 수정
+	@RequestMapping("/helpmodify")
+	public String helpmodify(Model model ,int num1){
+		
+		System.out.println("helpmodify");
+		List<BbsDto> helpview = dao.helpview(num1);
+		model.addAttribute("help", helpview);
 
-	//------�ð�ȭ �ڷ� ������ --------------
-	//�ð�ȭ �ڷ� ���� ������ (������ ������ ��)##################
+		System.out.println(helpview);
+
+		//model.addAttribute("notice", dao.notice());
+		return "admin/helpmodify";
+	}
+	// 민원(제목) 검색 기능
+	@RequestMapping("/public/help_search")
+	public String help_search(Model model, String title1) {
+		List<BbsDto> help_search = dao.help_search(title1);
+		model.addAttribute("help",help_search);
+		return "public/help";
+	}
+	// 민원 글 작성 폼
+	@RequestMapping("/admin/writeHelp")
+	public String adminWriteForm2() {
+		
+		return "admin/writeHelp";
+	}
+	
+	//------시각화자료 페이지 --------------
+	//시각화 자료 페이지 만들어야함)##################
 	@RequestMapping("public/dataView")
 	public String dataView(){
 		return "public/dataView";
 	}  
 
-	//-------�α���,ȸ������ ����¡ ------------
-	// ȸ������ ������
+	//-------회원가입 메뉴------------
+	// 회원가입 페이지
 	@RequestMapping("/security/joinForm")
 	public String dispSignup() {
 		return "security/joinForm";
 	}
 
-	// ����Ȯ�� ó��
-
+	// 가입 프로세스
 	@RequestMapping("/public/joinOk")
 	public String joinOk(HttpServletRequest request,Model model) {
 		String id= request.getParameter("id");
@@ -220,31 +286,26 @@ public class MyController
 		return "security/loginForm";
 	}
 
-	// �α��� ����¡
+	// 로그인 폼
 	@RequestMapping("/security/loginForm")
 	public String loginForm(Model model, HttpServletRequest req) {
 		return "security/loginForm";
 	}
 
-	// �α��� ���������
+	// 로그인 프로세스
 	@RequestMapping("/security/loginSuccess")
 	public String loginOk() {
 
 		return "security/loginSuccess";
 	}
-	// LOGIN Fail	
-	@GetMapping("/loginFail")
-	@ResponseBody
-	public String loginFail() {
-		return "Fail !";
-	}
-	// �α׾ƿ� ó��
+	
+	// 로그아웃
 	@RequestMapping("/logout")
 	public String logout() {
 		return "public/mainPage";
 	}
 
-	//������ ȸ������ ������ 
+	//어드민 페이지 
 	@RequestMapping("/admin/ManageForMem")
 	public String userlistPage(Model model) {
 

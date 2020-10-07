@@ -4,30 +4,19 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.springboot.dao.BbsDao">
-	<select id="listDao"
-		resultType="com.project.springboot.dto.BbsDto">
-		select * from simple_bbs order by id desc
-	</select>
-
-	<select id="viewDao"
-		resultType="com.project.springboot.dto.BbsDto">
-		select * from simple_bbs where id = #{param1}
-	</select>
-
+	<!-- 공지사항 MAPPER -->
 	<insert id="writeDao">
 		INSERT INTO
 		NOTICE_LIST(NOTICE_NUM,NOTICE_ID,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_DATE)
-		VALUES(NEXT VALUE FOR NOTICE_SEQ,'admin',#{param1},#{param2},SYSDATETIME());
+		VALUES(NEXT VALUE FOR
+		NOTICE_SEQ,'admin',#{param1},#{param2},SYSDATETIME());
 	</insert>
-
-	<delete id="deleteDao">
-		delete from simple_bbs where id=#{param1}
-	</delete>
 	<select id="notice"
 		resultType="com.project.springboot.dto.BbsDto">
 		select * from NOTICE_LIST
-		order by notice_num desc , notice_date asc
-		offset  #{nStart} rows
+		order by notice_num desc ,
+		notice_date asc
+		offset #{nStart} rows
 		fetch next 10 rows only
 	</select>
 	<select id="noticeview"
@@ -38,14 +27,16 @@
 		delete from notice_list where notice_num =#{param1}
 	</delete>
 	<update id="noticeupdate">
-		update notice_list set notice_title=#{param2}, notice_content=#{param3}
+		update notice_list set notice_title=#{param2},
+		notice_content=#{param3}
 		where notice_num =#{param1}
 	</update>
 	<update id="noticehit">
-		update notice_list set notice_hit = notice_hit + 1 
+		update notice_list set notice_hit = notice_hit + 1
 		where notice_num =#{param1}
 	</update>
-	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
+	<select id="noticesearch"
+		resultType="com.project.springboot.dto.BbsDto">
 		select * from notice_list where notice_title=#{param1}
 	</select>
 	<select id="articlePage"
@@ -53,4 +44,47 @@
 		select count(*)as total from notice_list
 	</select>
 
+	<!-- 민원.건의사항 BOARD MAPPER -->
+
+	<insert id="writeDao1">
+		insert into
+		help_list (help_num, help_id, help_title,
+		help_content, help_date, help_group)
+		values(next value for
+		help_seq,'test',#{param1},#{param2},sysdatetime(),'0');
+	</insert>
+
+	<select id="help" resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list
+		order by
+		help_num desc, help_date asc
+		offset #{nStart} rows
+		fetch next 10 rows
+		only
+	</select>
+	<select id="helpview"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list where help_num = #{param1}
+	</select>
+	<delete id="helpdelete">
+		delete from help_list where help_num = #{param1}
+	</delete>
+	<update id="helpupdate">
+		update help_list set help_title=#{param2},
+		help_content=#{param3}
+		where help_num =#{param1}
+	</update>
+	<update id="helphit">
+		update help_list set help_hit = help_hit + 1
+		where
+		help_num =#{param1}
+	</update>
+	<select id="articlePage1"
+		resultType="com.project.springboot.dto.BbsPage">
+		select count(*) as total from help_list
+	</select>
+	<select id="help_search"
+		resultType="com.project.springboot.dto.BbsDto">
+		select * from help_list where help_title= #{param1}
+	</select>
 </mapper>

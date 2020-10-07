@@ -10,11 +10,8 @@ import com.project.springboot.dto.BbsPage;
 @Mapper	
 public interface BbsDao {
 	
-	
-	public List<BbsDto> listDao();
-	public BbsDto viewDao(String id);
+	// 공지사항 Mapper
 	public int writeDao(String title, String content);
-	public int deleteDao(String id);
 	public List<BbsDto> notice(int curPage);
 	public List<BbsDto> noticeview(int num);
 	public int noticedelete(int num);
@@ -23,4 +20,15 @@ public interface BbsDao {
 	public int noticehit(int num);
 	public List<BbsDto> noticesearch(String title);
 	public BbsPage articlePage();
+	
+	// 민원 건의 Mapper
+	public int writeDao1(String title1, String content1);
+	public List<BbsDto> help(int curPage);
+	public List<BbsDto> helpview(int num1);
+	public int helpdelete(int num1);
+	public int helpupdate(int num1, String title1, String content1);
+	public String helpmodify(int num1);
+	public int helphit(int num1);
+	public List<BbsDto> help_search(String title1);
+	public BbsPage articlePage1();
 }

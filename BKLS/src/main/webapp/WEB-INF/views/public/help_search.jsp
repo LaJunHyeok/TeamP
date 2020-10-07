@@ -61,76 +61,15 @@
 
 	<div class="container">
 		<div class="row justify-content-end">
-			<a class="btn btn-info" href="../admin/writeHelp">글작성</a>
+			<a class="btn btn-info" href="admin/writeHelp">글작성</a>
 		</div>
 	</div>
 	
 	<div class="container">
 	<div class="row justify-content-center">	
-		<form class="form-inline my-2 my-md-0" action="../public/help_search" method="post">
+		<form class="form-inline my-2 my-md-0" action="help_search" method="post">
 			<input class="form-control mr-sm-2" name="title1" type="text" placeholder="제목으로 검색">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</div>	
 	</div>
-
-	<nav aria-label="..." class="row justify-content-md-center">
-		<ul class="pagination">
-			<c:choose>
-				<c:when test="${(page.curPage -1) <1}">
-					<li class="page-item disabled"><span class="page-link">&lt;&lt;</span></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link" href="help?page=1">&lt;&lt;</a></li>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${(page.curPage -1) <1}">
-					<li class="page-item disabled"><span class="page-link">&lt;</span></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="help?page=${page.curPage - 1}">&lt;</a></li>
-				</c:otherwise>
-			</c:choose>
-			<c:forEach var="fEach" begin="${page.startPage}"
-				end="${page.endPage}" step="1">
-				<c:choose>
-					<c:when test="${page.curPage == fEach}">
-						<li class="page-item"><a class="page-link" href="#">${fEach}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="help?page=${fEach}">${fEach}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:choose>
-				<c:when test="${page.curPage >= page.totalPage}">
-					<li class="page-item disabled"><span class="page-link">&gt;</span></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="help?page=${page.curPage + 1}">&gt;</a></li>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${page.curPage == page.totalPage}">
-					<li class="page-item"><a class="page-link">&gt;&gt;</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="help?page=${page.totalPage}">&gt;&gt;</a></li>
-				</c:otherwise>
-			</c:choose>
-
-		</ul>
-
-	</nav>
-
-</body>
-
-<!-- 
-<jsp:include page="../footer.jsp" flush="false" />
-Footer -->
-</html>
