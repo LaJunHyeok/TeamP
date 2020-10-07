@@ -49,12 +49,12 @@
 										value="${todayDate}" type="number" var="today" /> <fmt:parseNumber
 										value="${dtoDate}" type="number" var="uploadDate" /> <!-- 업로드 된 날짜 형식 바꿔서 테이블에 적용해주기 -->
 									<fmt:formatDate value="${dto.notice_date}"
-										pattern="yy-MM-dd kk:mm" var="uploadDate2" /> <c:if
+										pattern="yyyy-MM-dd" var="uploadDate2" /> <c:if
 										test="${ 100 > today-uploadDate }">
 										<span id="date" class="badge badge-secondary">New</span>
 									</c:if> ${dto.notice_title}
 							</a></td>
-							<td>${dto.notice_date}</td>
+							<td>${uploadDate2}</td>
 							<td>${dto.notice_hit}</td>
 						</tr>
 
@@ -72,7 +72,7 @@
 			<p align="center">
 				
 			<form class="form-inline my-2 my-lg-0" action="/noticesearch"
-				method="post">
+				method="get">
 				<input class="form-control mr-sm-2" type="text" name="title"
 					placeholder="Search"> <input
 					class="btn btn-outline-success my-2 my-sm-0" type="submit"
