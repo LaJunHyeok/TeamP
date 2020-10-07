@@ -91,7 +91,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link"
-								href="notice?page=1&title=${title}">&lt;&lt;</a></li>
+								href="noticesearch?page=1&title=${title}">&lt;&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -100,7 +100,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link"
-								href="notice?page=${page.curPage - 1}&title=${title}">&lt;</a></li>
+								href="noticesearch?page=${page.curPage - 1}&title=${title}">&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach var="fEach" begin="${page.startPage}"
@@ -111,7 +111,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="notice?page=${fEach}&title=${title}">${fEach}</a></li>
+									href="noticesearch?page=${fEach}&title=${title}">${fEach}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -121,7 +121,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link"
-								href="notice?page=${page.curPage + 1}&title=${title}">&gt;</a></li>
+								href="noticesearch?page=${page.curPage + 1}&title=${title}">&gt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -130,7 +130,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link"
-								href="notice?page=${page.totalPage}&title=${title}">&gt;&gt;</a></li>
+								href="noticesearch?page=${page.totalPage}&title=${title}">&gt;&gt;</a></li>
 						</c:otherwise>
 					</c:choose>
 

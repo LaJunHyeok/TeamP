@@ -22,7 +22,7 @@
 			<table class="table table-dark" cellpadding="0" cellspacing="0"
 				border="1">
 	
-		<form action="noticeupdate" method="post">
+		<form action="noticeupdate" method="get">
 			<!--<c:forEach items="${notice}" var="dto">-->
 				<tr>
 					<td><input type="hidden" name="num"value="${dto.notice_num}"></td>

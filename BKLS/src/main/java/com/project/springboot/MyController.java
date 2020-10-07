@@ -64,14 +64,14 @@ public class MyController
 	public String notice(HttpServletRequest request ,Model model){
 		System.out.println("notice");
 
-		int nPage = 1;
+		int nPage = 0;
 		try {
 			String page = request.getParameter("page");
 			System.out.println("Page :" +page);
 			nPage = Integer.parseInt(page);
 		} catch (Exception e) {
 			System.out.println("error");
-			e.printStackTrace();
+			 nPage = 1;
 		}
 
 		BbsPage total = dao.articlePage(); 
