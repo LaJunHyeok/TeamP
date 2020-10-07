@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.springboot.dao.userListDao">
+    <select id="userList" resultType="com.project.springboot.dto.userListDto">
+        select * 
+        from user_list a
+        inner join user_account b on a.user_id = b.id
+        where a.user_id != 'admin'
+        order by user_date desc
+    </select>
+    
+    <update id="userBan">
+        update user_account set isEnabled = 0 where id = #{param1}
+    </update>
+    
+    <update id="userRestore">
+        update user_account set isEnabled = 1 where id = #{param1}
+    </update>
+    
+</mapper>
