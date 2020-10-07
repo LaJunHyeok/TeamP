@@ -19,5 +19,19 @@
     <update id="userRestore">
         update user_account set isEnabled = 1 where id = #{param1}
     </update>
+    <select id="userArticlePage" resultType="com.project.springboot.dto.BbsPage">
+		select count(*) as total 
+        from user_info a
+        inner join user_account b on a.id = b.id
+        where a.id != 'admin'
+        order by date desc
+	</select>
+	<select id="user_search" resultType="com.project.springboot.dto.BbsDto">
+		select count(*) as total 
+        from user_info a
+        inner join user_account b on a.id = b.id
+        where a.id != #{param1}
+        order by date desc
+	</select>
     
 </mapper>

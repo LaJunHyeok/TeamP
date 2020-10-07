@@ -82,13 +82,13 @@ public class MyController
 		PageInfo info = new PageInfo();
 		BpageInfo binfo = info.pInfo(totalCount,nPage);
 		int nStart = (nPage -1) * listCount;
-		System.out.println("�쁽�옱 �럹�씠吏��뒗"+nPage);
+		System.out.println("curPage"+nPage);
 		List<BbsDto> notice = dao.notice(nStart);
 
 		System.out.println(binfo);
 		model.addAttribute("notice", notice);
 		model.addAttribute("page", binfo);
-		System.out.println("湲�紐⑸줉"+notice);
+		System.out.println("list"+notice);
 		return "public/notice";
 	}
 	@RequestMapping("/noticeview")
@@ -330,22 +330,22 @@ public class MyController
 	}
 
 	// admin user manage mapping
-	   @RequestMapping("/admin/userList")
-	   public String userlistPage(Model model) {
-	      model.addAttribute("userList", uDao.userList());
-	      return "admin/userList";
-	   }
+	@RequestMapping("/admin/userList")
+	public String userlistPage( Model model) {
+		model.addAttribute("userList", uDao.userList());
+		return "admin/userList";
+	}
 	   
-	   @RequestMapping("/admin/userBan")
-	   public String userBan(HttpServletRequest request, Model model) {
-	      uDao.userBan(request.getParameter("id"));
-	      return "redirect:userList";
-	   }
+	@RequestMapping("/admin/userBan")
+	public String userBan(HttpServletRequest request, Model model) {
+		uDao.userBan(request.getParameter("id"));
+		return "redirect:userList";
+	}
 	   
-	   @RequestMapping("/admin/userRestore")
-	   public String userRestore(HttpServletRequest request, Model model) {
-	      uDao.userRestore(request.getParameter("id"));
-	      return "redirect:userList";
-	   }
+	@RequestMapping("/admin/userRestore")
+	public String userRestore(HttpServletRequest request, Model model) {
+		uDao.userRestore(request.getParameter("id"));
+		return "redirect:userList";
+	}
 
 }
