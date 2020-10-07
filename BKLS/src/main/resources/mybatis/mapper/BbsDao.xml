@@ -37,7 +37,7 @@
 	</update>
 	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
       select * from NOTICE_LIST
-      where notice_title= #{param1}
+      where notice_title LIKE  '%'+#{param1}+'%'
       order by notice_num desc , notice_date asc
       offset  #{param2} rows
       fetch next 10 rows only

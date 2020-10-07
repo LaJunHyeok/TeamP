@@ -34,8 +34,8 @@ public class MyController
 	private BbsDao dao;
 	@Autowired
 	private userListDao uDao;
-	
-	
+
+
 	int listCount =10;
 	int pagecount= 5;
 	@Autowired
@@ -53,7 +53,7 @@ public class MyController
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
 
-	
+
 	@RequestMapping("/")
 	public String root() throws Exception{	    	
 		//MyBatis : SimpleBBS
@@ -132,37 +132,37 @@ public class MyController
 		//model.addAttribute("notice", dao.notice());
 		return "admin/noticemodify";
 	}
-	@RequestMapping("public/noticesearch")
-	   public String noticesearch(HttpServletRequest request ,String title, Model model){
-	      System.out.println(title);
-	      int nPage = 1;
-	      try {
-	         String page = request.getParameter("page");
-	         System.out.println("Page :" +page);
-	         nPage = Integer.parseInt(page);
-	      } catch (Exception e) {
-	         System.out.println("error");
-	         e.printStackTrace();
-	      }
-	      BbsPage total = dao.searchPage(title); 
-	      model.addAttribute("total",dao.searchPage(title));
-	      int totalCount = total.getTotal();
-	      //System.out.println(total);
-	      System.out.println("total"+totalCount);
-	      PageInfo info = new PageInfo();
-	      BpageInfo binfo = info.pInfo(totalCount,nPage);
-	      int nStart = (nPage -1) * listCount;
-	      System.out.println("현재 페이지는"+nPage);
-	      List<BbsDto> noticesearch = dao.noticesearch(title,nStart);
-	      System.out.println("search");
-	      model.addAttribute("notice", noticesearch);
-	      model.addAttribute("page", binfo);
-	      System.out.println(noticesearch);
-	      System.out.println(binfo);
-	      System.out.println("글목록"+noticesearch);
-	      return "public/noticeSearch";
-	   }
 
+	@RequestMapping("/noticesearch")
+	public String noticesearch(HttpServletRequest request ,String title, Model model){
+		System.out.println(title);
+		int nPage = 0;
+		try {
+			String page = request.getParameter("page");
+			System.out.println("Page :" +page);
+			nPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			System.out.println("error");
+			nPage = 1;
+		}
+		BbsPage total = dao.searchPage(title); 
+		model.addAttribute("total",dao.searchPage(title));
+		int totalCount = total.getTotal();
+		//System.out.println(total);
+		System.out.println("total"+totalCount);
+		PageInfo info = new PageInfo();
+		BpageInfo binfo = info.pInfo(totalCount,nPage);
+		int nStart = (nPage -1) * listCount;
+		System.out.println("현재 페이지는"+nPage);
+		List<BbsDto> noticesearch = dao.noticesearch(title,nStart);
+		System.out.println("search");
+		model.addAttribute("notice", noticesearch);
+		model.addAttribute("page", binfo);
+		model.addAttribute("title",title);
+		System.out.println(binfo);
+		System.out.println("글목록"+noticesearch);
+		return "public/noticeSearch";
+	}
 
 
 	@RequestMapping("/admin/writeForm")
@@ -184,21 +184,21 @@ public class MyController
 
 
 	//--------민원 건의사항 메뉴 ----------- 
-	
+
 	//민원 페이지
 	@RequestMapping("/public/help")
 	public String help(HttpServletRequest request, Model model) {
-		
+
 		int nPage = 1;
 		try {
 			String page = request.getParameter("page");
 			System.out.println("Page :" +page);
 			nPage = Integer.parseInt(page);
 		} catch (Exception e) {
-			
+
 		}
-		
-				
+
+
 		BbsPage total = dao.articlePage1(); 
 		model.addAttribute("total",dao.articlePage1());
 		int totalCount = total.getTotal();	
@@ -206,7 +206,7 @@ public class MyController
 		BpageInfo binfo = info.pInfo(totalCount,nPage);
 		int nStart = (nPage -1) * listCount;
 		List<BbsDto> help = dao.help(nStart);
-		
+
 		System.out.println(binfo);
 		model.addAttribute("help", help);
 		model.addAttribute("page", binfo);
@@ -215,21 +215,21 @@ public class MyController
 	//민원 상세 페이지##################
 	@RequestMapping("/public/helpview")
 	public String helpview(Model model, int num1){
-		 
+
 		System.out.println("helpview");
 		dao.helphit(num1);
 		List<BbsDto> helpview = dao.helpview(num1);
-		
+
 		model.addAttribute("help", helpview);
 		System.out.println(helpview);
 		return "public/helpView";
 	}
 	// 민원 글쓰기 
-		@RequestMapping("/write1")
-		public String write1(String title1, String content1) {
-			dao.writeDao1(title1, content1);
-			return "redirect:/help";
-		}
+	@RequestMapping("/write1")
+	public String write1(String title1, String content1) {
+		dao.writeDao1(title1, content1);
+		return "redirect:/help";
+	}
 	//민원 글작성 업데이트
 	@RequestMapping("/helpupdate")
 	public String update1(Model model ,String num1,String title1,String content1){
@@ -244,7 +244,7 @@ public class MyController
 	//민원 수정
 	@RequestMapping("/helpmodify")
 	public String helpmodify(Model model ,int num1){
-		
+
 		System.out.println("helpmodify");
 		List<BbsDto> helpview = dao.helpview(num1);
 		model.addAttribute("help", helpview);
@@ -257,7 +257,7 @@ public class MyController
 	// 민원(제목) 검색 기능
 	@RequestMapping("/help_search")
 	public String help_search(Model model, String title1) {
-		
+
 		List<BbsDto> help_search = dao.help_search(title1);
 		model.addAttribute("help",help_search);
 		return "public/help";
@@ -265,10 +265,10 @@ public class MyController
 	// 민원 글 작성 폼
 	@RequestMapping("/private/writeHelp")
 	public String adminWriteForm2() {
-		
+
 		return "private/writeHelp";
 	}
-	
+
 	//------시각화자료 페이지 --------------
 	//시각화 자료 페이지 만들어야함)##################
 	@RequestMapping("public/dataView")
@@ -322,7 +322,7 @@ public class MyController
 
 		return "security/loginSuccess";
 	}
-	
+
 	// 로그아웃
 	@RequestMapping("/logout")
 	public String logout() {
@@ -335,13 +335,13 @@ public class MyController
 		model.addAttribute("userList", uDao.userList());
 		return "admin/userList";
 	}
-	   
+
 	@RequestMapping("/admin/userBan")
 	public String userBan(HttpServletRequest request, Model model) {
 		uDao.userBan(request.getParameter("id"));
 		return "redirect:userList";
 	}
-	   
+
 	@RequestMapping("/admin/userRestore")
 	public String userRestore(HttpServletRequest request, Model model) {
 		uDao.userRestore(request.getParameter("id"));

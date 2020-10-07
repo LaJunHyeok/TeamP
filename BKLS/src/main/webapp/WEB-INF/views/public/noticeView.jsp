@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="sec"
+   uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -61,12 +63,14 @@
 			</table>
 			</p>
 			<p align="right">
+			<sec:authorize access="hasRole('ADMIN')">
 			<button>
 				<a href="noticedelete?num=${dto.notice_num}">삭제</a>
 			</button>
 			<button>
 				<a href="noticemodify?num=${dto.notice_num}">글수정</a>
 			</button>
+			</sec:authorize>
 			<button>
 				<a href="notice?page=1">목록보기</a>
 			</button>
