@@ -225,7 +225,7 @@ public class MyController
 		return "public/helpView";
 	}
 	// 민원 글쓰기 
-		@RequestMapping("/admin/write1")
+		@RequestMapping("/write1")
 		public String write1(String title1, String content1) {
 			dao.writeDao1(title1, content1);
 			return "redirect:/help";
@@ -263,10 +263,10 @@ public class MyController
 		return "public/help";
 	}
 	// 민원 글 작성 폼
-	@RequestMapping("/admin/writeHelp")
+	@RequestMapping("/private/writeHelp")
 	public String adminWriteForm2() {
 		
-		return "admin/writeHelp";
+		return "private/writeHelp";
 	}
 	
 	//------시각화자료 페이지 --------------

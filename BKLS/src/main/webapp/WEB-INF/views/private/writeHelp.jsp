@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,6 +33,13 @@
 				name="title1" placeholder="" value="" required>
 		</div>
 
+		<div class="mb-3">
+			<label for="작성자">작성자</label> 
+			<input type="text"
+			 name="<sec:authentication property="principal.username" />" readonly />   
+			
+			
+		</div>
 		<div class="mb-3">
 			<label for="내용">내용</label>
 			<textarea class="form-control" id="editor1" name="content1" rows="10"

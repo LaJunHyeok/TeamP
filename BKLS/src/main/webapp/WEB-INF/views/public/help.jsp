@@ -61,13 +61,13 @@
 
 	<div class="container">
 		<div class="row justify-content-end">
-			<a class="btn btn-info" href="../admin/writeHelp">글작성</a>
+			<a class="btn btn-info" href="../private/writeHelp">글작성</a>
 		</div>
 	</div>
 	
 	<div class="container">
 	<div class="row justify-content-center">	
-		<form class="form-inline my-2 my-md-0" action="help_search" method="post">
+		<form class="form-inline my-2 my-md-0" action="/help_search" method="get">
 			<input class="form-control mr-sm-2" id="title1" name="title1" type="text" placeholder="제목으로 검색">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
@@ -130,7 +130,7 @@
 
 </body>
 
-<!-- 
+
 <jsp:include page="../footer.jsp" flush="false" />
-Footer -->
+
 </html>

@@ -41,8 +41,8 @@
           게시판
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="notice?page=1">공지 사항</a>
-          <a class="dropdown-item" href="public/help">건의 및 민원</a>
+          <a class="dropdown-item" href="/notice?page=1">공지 사항</a>
+          <a class="dropdown-item" href="/public/help">건의 및 민원</a>
         </div>
       </li>
       <li class="nav-item active">

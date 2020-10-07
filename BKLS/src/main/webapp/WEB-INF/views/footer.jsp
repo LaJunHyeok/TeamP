@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
+
+
 <style>
 .footer {
     display: flex;
@@ -30,7 +33,7 @@
 }
 </style>
 <body>
-<div class="footer">
+<div class="footer bg-light">
     
     <!-- 회사소개/지도보기 -->
     <div class="footleft">
@@ -49,4 +52,8 @@
     </div>
 </div>
 </body>
+
+<!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 </html>
