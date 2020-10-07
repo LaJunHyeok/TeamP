@@ -31,15 +31,18 @@
         </tr>
         <c:forEach items="${userList}" var="dto">
             <tr>
-            <td>${dto.user_id}</td>
+            <td><a href="list_help?user_id=${dto.user_id}">${dto.user_id}</a></td>
             <td>${dto.user_name}</td>
             <td>${dto.user_email}</td>
             <td>${dto.user_address}</td>
             <td>${dto.user_date}</td>
-            <td>${dto.isEnabled}</td>
             <td>
-                <a href="userBan?user_id=${dto.user_id}">정지</a>
-                <a href="userRestore?user_id=${dto.user_id}">해제</a>
+                <c:if test="${dto.isEnabled == 1}">정상회원</c:if>
+                <c:if test="${dto.isEnabled == 0}">정지회원</c:if>
+            </td>
+            <td>
+                <a href="userBan?user_id=${dto.user_id}" class="btn btn-light">정지</a>
+                <a href="userRestore?user_id=${dto.user_id}" class="btn btn-light">해제</a>
             </td>
         </tr>    
         </c:forEach>
