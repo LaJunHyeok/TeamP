@@ -71,7 +71,7 @@
 					</p>
 			<p align="center">
 				
-			<form class="form-inline my-2 my-lg-0" action="noticesearch"
+			<form class="form-inline my-2 my-lg-0" action="/noticesearch"
 				method="post">
 				<input class="form-control mr-sm-2" type="text" name="title"
 					placeholder="Search"> <input

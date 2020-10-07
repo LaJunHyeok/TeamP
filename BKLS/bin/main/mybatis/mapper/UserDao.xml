@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.project.springboot.signuplogin.UserService">
+
+	<insert id="join" parameterType="java.util.HashMap">
+		insert into USER_INFO(id,password,name,email,address,date)
+			values (#{item1}, #{item2},#{item3},#{item4},#{item5},GETDATE())
+	</insert>
+
+</mapper>

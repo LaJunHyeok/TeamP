@@ -9,7 +9,7 @@ public class UserInfoDto {
 	private String email;
 	private String address;
 	private Timestamp date;
-	private int enabled;
+
 	public String getId() {
 		return id;
 	}
@@ -46,12 +46,6 @@ public class UserInfoDto {
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
-	}
-	public int getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
 	}
 	
 }

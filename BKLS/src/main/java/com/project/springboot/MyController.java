@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.springboot.dao.BbsDao;
-import com.project.springboot.dao.PageInfo;
-import com.project.springboot.dto.BbsDto;
-import com.project.springboot.dto.BbsPage;
-import com.project.springboot.dto.BpageInfo;
+import com.project.springboot.dao.*;
+import com.project.springboot.dto.*;
+
 import com.project.springboot.signuplogin.AccountMapper;
 import com.project.springboot.signuplogin.AccountService;
 import com.project.springboot.signuplogin.Authority;
@@ -34,6 +32,10 @@ public class MyController
 
 	@Autowired
 	private BbsDao dao;
+	@Autowired
+	private userListDao uDao;
+	
+	
 	int listCount =10;
 	int pagecount= 5;
 	@Autowired
@@ -130,15 +132,36 @@ public class MyController
 		//model.addAttribute("notice", dao.notice());
 		return "admin/noticemodify";
 	}
-	@RequestMapping("/noticesearch")
-	public String noticesearch(Model model, String title ){
-		System.out.println(title);
-		List<BbsDto> noticesearch = dao.noticesearch(title);
-		System.out.println("search");
-		model.addAttribute("notice", noticesearch);
-		System.out.println(noticesearch);
-		return "public/noticeSearch";
-	}
+	@RequestMapping("public/noticesearch")
+	   public String noticesearch(HttpServletRequest request ,String title, Model model){
+	      System.out.println(title);
+	      int nPage = 1;
+	      try {
+	         String page = request.getParameter("page");
+	         System.out.println("Page :" +page);
+	         nPage = Integer.parseInt(page);
+	      } catch (Exception e) {
+	         System.out.println("error");
+	         e.printStackTrace();
+	      }
+	      BbsPage total = dao.searchPage(title); 
+	      model.addAttribute("total",dao.searchPage(title));
+	      int totalCount = total.getTotal();
+	      //System.out.println(total);
+	      System.out.println("total"+totalCount);
+	      PageInfo info = new PageInfo();
+	      BpageInfo binfo = info.pInfo(totalCount,nPage);
+	      int nStart = (nPage -1) * listCount;
+	      System.out.println("현재 페이지는"+nPage);
+	      List<BbsDto> noticesearch = dao.noticesearch(title,nStart);
+	      System.out.println("search");
+	      model.addAttribute("notice", noticesearch);
+	      model.addAttribute("page", binfo);
+	      System.out.println(noticesearch);
+	      System.out.println(binfo);
+	      System.out.println("글목록"+noticesearch);
+	      return "public/noticeSearch";
+	   }
 
 
 
@@ -232,8 +255,9 @@ public class MyController
 		return "admin/helpmodify";
 	}
 	// 민원(제목) 검색 기능
-	@RequestMapping("/public/help_search")
+	@RequestMapping("/help_search")
 	public String help_search(Model model, String title1) {
+		
 		List<BbsDto> help_search = dao.help_search(title1);
 		model.addAttribute("help",help_search);
 		return "public/help";
@@ -305,12 +329,23 @@ public class MyController
 		return "public/mainPage";
 	}
 
-	//어드민 페이지 
-	@RequestMapping("/admin/ManageForMem")
-	public String userlistPage(Model model) {
-
-		return "admin/ManageForMem";
-	}
-
+	// admin user manage mapping
+	   @RequestMapping("/admin/userList")
+	   public String userlistPage(Model model) {
+	      model.addAttribute("userList", uDao.userList());
+	      return "admin/userList";
+	   }
+	   
+	   @RequestMapping("/admin/userBan")
+	   public String userBan(HttpServletRequest request, Model model) {
+	      uDao.userBan(request.getParameter("id"));
+	      return "redirect:userList";
+	   }
+	   
+	   @RequestMapping("/admin/userRestore")
+	   public String userRestore(HttpServletRequest request, Model model) {
+	      uDao.userRestore(request.getParameter("id"));
+	      return "redirect:userList";
+	   }
 
 }

@@ -18,8 +18,9 @@ public interface BbsDao {
 	public int noticeupdate(int num,String title,String content);
 	public String noticemodify(int num);
 	public int noticehit(int num);
-	public List<BbsDto> noticesearch(String title);
+	public List<BbsDto> noticesearch(String title,int curPage);
 	public BbsPage articlePage();
+	public BbsPage searchPage(String title);
 	
 	// ¹Î¿ø °ÇÀÇ Mapper
 	public int writeDao1(String title1, String content1);

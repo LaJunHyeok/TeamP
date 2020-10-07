@@ -35,10 +35,17 @@
 		update notice_list set notice_hit = notice_hit + 1
 		where notice_num =#{param1}
 	</update>
-	<select id="noticesearch"
-		resultType="com.project.springboot.dto.BbsDto">
-		select * from notice_list where notice_title=#{param1}
-	</select>
+	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
+      select * from NOTICE_LIST
+      where notice_title= #{param1}
+      order by notice_num desc , notice_date asc
+      offset  #{param2} rows
+      fetch next 10 rows only
+   </select>
+   <select id="searchPage"
+      resultType="com.project.springboot.dto.BbsPage">
+      select count(*)as total from notice_list where notice_title=#{param1}
+   </select>
 	<select id="articlePage"
 		resultType="com.project.springboot.dto.BbsPage">
 		select count(*)as total from notice_list

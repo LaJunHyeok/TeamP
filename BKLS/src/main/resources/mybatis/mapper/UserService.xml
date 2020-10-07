@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace="com.project.springboot.signuplogin.UserService">
-
-	<insert id="join" parameterType="java.util.HashMap">
-		insert into USER_INFO(id,password,name,email,address,date,enabled)
-			values (#{item1}, #{item2},#{item3},#{item4},#{item5},GETDATE(),1)
-	</insert>
-
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.springboot.dao.userListDao">
+    <select id="userList" resultType="com.project.springboot.dto.userListDto">
+        select * 
+        from user_info a
+        inner join user_account b on a.id = b.id
+        where a.id != 'admin'
+        order by date desc
+    </select>
+    
+    <update id="userBan">
+        update user_account set isEnabled = 0 where id = #{param1}
+    </update>
+    
+    <update id="userRestore">
+        update user_account set isEnabled = 1 where id = #{param1}
+    </update>
+    
 </mapper>
