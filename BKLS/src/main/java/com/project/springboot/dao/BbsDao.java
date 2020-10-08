@@ -23,7 +23,7 @@ public interface BbsDao {
 	public BbsPage searchPage(String title);
 	
 	// ¹Î¿ø °ÇÀÇ Mapper
-	public int writeDao1(String title1, String content1);
+	public int writeDao1(String id,String title1, String content1);
 	public List<BbsDto> help(int curPage);
 	public List<BbsDto> helpview(int num1);
 	public int helpdelete(int num1);
@@ -32,4 +32,5 @@ public interface BbsDao {
 	public int helphit(int num1);
 	public List<BbsDto> help_search(String title1);
 	public BbsPage articlePage1();
+	
 }

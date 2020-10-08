@@ -27,39 +27,39 @@
 	
 	<div class="container">
 		<div class="row justify-content-center">
-			<form class="container" action="noticeupdate" method="post">
+			<form class="container" action="helpupdate" method="get">
 			
-			<c:forEach items="${notice}" var="dto">
+			<c:forEach items="${help}" var="dto">
 			
-			<input type="hidden" name="num" value="${dto.notice_num}"> 
+			<input type="hidden" name="num1" value="${dto.help_num}"> 
 			
 					<div class="form-group row">
 						<label for="num" class="col-sm-2 col-form-label">번호</label>
-						<div class="col-sm-10">${dto.notice_num}</div>
+						<div class="col-sm-10">${dto.help_num}</div>
 					</div>
 					
 					 
 					<div class="form group row">
 						<label for="hit" class="col-sm-2 col-form-label">조회수</label>
-						<div class="col-sm-10">${dto.notice_hit}</div>
+						<div class="col-sm-10">${dto.help_hit}</div>
 					
 					</div>
 					<div class="form group row">
 						<label for="id" class="col-sm-2 col-form-label">아이디</label>
-						<div class="col-sm-10">${dto.notice_id}</div>
+						<div class="col-sm-10">${dto.help_id}</div>
 					</div>
 					<div class="form group row">
 						<label for="title" class="col-sm-2 col-form-label">제목</label>
 						<div class="col-sm-10">
-							<input type="text" name="title" class="form-control" id="title"
-								value="${dto.notice_title}">
+							<input type="text" name="title1" class="form-control" id="title"
+								value="${dto.help_title}">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="content" class="col-sm-2 col-form-label">내용</label>
 						<div class="col-sm-10">
-							<textarea id="editor1" rows="10" name="content"
-								class="form-control">${dto.notice_content}</textarea>
+							<textarea id="editor1" rows="10" name="content1"
+								class="form-control">${dto.help_content}</textarea>
 							<script>
 								CKEDITOR.replace('editor1');
 							</script>
@@ -69,7 +69,7 @@
 				<div class="container">
 					<div class="row justify-content-end">
 						<button type="submit" class="btn btn-info">수정</button>&nbsp;&nbsp;
-						<a href="notice" class="btn btn-info">목록보기</a>
+						<a href="#" onclick="history.go(-1)" class="btn btn-info">목록보기</a>
 					</div>
 				</div>	
 			</c:forEach>

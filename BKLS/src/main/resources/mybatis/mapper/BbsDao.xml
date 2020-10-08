@@ -35,9 +35,9 @@
 		update notice_list set notice_hit = notice_hit + 1
 		where notice_num =#{param1}
 	</update>
-	<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
+<select id="noticesearch" resultType="com.project.springboot.dto.BbsDto">
       select * from NOTICE_LIST
-      where notice_title= #{param1}
+      where notice_title LIKE  '%'+#{param1}+'%'
       order by notice_num desc , notice_date asc
       offset  #{param2} rows
       fetch next 10 rows only
@@ -56,9 +56,9 @@
 	<insert id="writeDao1">
 		insert into
 		help_list (help_num, help_id, help_title,
-		help_content, help_date, help_group)
+		help_content, help_date, help_group, help_hit)
 		values(next value for
-		help_seq,'test',#{param1},#{param2},sysdatetime(),'0');
+		help_seq,#{param1},#{param2},#{param3},sysdatetime(),'0','0');
 	</insert>
 
 	<select id="help" resultType="com.project.springboot.dto.BbsDto">

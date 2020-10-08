@@ -55,15 +55,15 @@
 	</table>
 	</div>	
 	</div>
-	
+
 	<div class="container">
 		<div class="row justify-content-end">
 			<a class="btn btn-info" href="helpdelete?num1=${dto.help_num}">삭제</a> &nbsp;&nbsp;
 			<a class="btn btn-info" href="helpmodify?num1=${dto.help_num}">수정</a> &nbsp;&nbsp;
-			<a class="btn btn-info" href="help">목록보기</a>
+			<a href="#" onclick="history.go(-1)" class="btn btn-info" >목록보기</a>
 		</div>
 	</div>
-	</form>
+
 	</c:forEach>
 
 

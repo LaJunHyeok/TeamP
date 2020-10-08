@@ -1,54 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>SAFE SEOUL</title>
+<meta charset="UTF-8">
+<title>공지사항 게시판 글쓰기 작성폼</title>
 </head>
+
+<!-- 에디터 -->
+<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
 <header>
-	<!-- 메뉴 바 -->
-	<jsp:include page="../menubar.jsp" flush="false" />
+<!-- 메뉴 바 -->
+<jsp:include page="../menubar.jsp" flush="false" />
 
 </header>
 <body>
+   
+   <br>
+   <p style="text-align: center">
+   <font size="6" color="#5bc0de">공지사항 작성</font> <br>   
 
-	<!-- 공지사항 작성 페이지입니다.  -->
-	<!-- ADMIN 만 작성 가능 -->
+   <div class="container">
+   <div class="row justify-content-center">
+   <form action="write" method="get">
+      
+      <div class="mb-3">
+         <label for="제목">제목</label> <input type="text" class="form-control"
+            name="title" placeholder="" value="" required>
+      </div>
 
-	<div class="container">
-		<div class="row justify-content-center">
-			<p align="center">
-			<table class="table table-dark" cellpadding="0" cellspacing="0"
-				border="1">
-
-				<form action="write" method="post">
-
-					<tr>
-						<td>제목</td>
-						<td><input type="text" name="title" size="100"></td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td><input type="text" name="content" size="100"></td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="submit" value="입력">
-							&nbsp;&nbsp; <a href="/notice">목록보기</a></td>
-					</tr>
-
-				</form>
-
-			</table>
-			</p>
-		</div>
-	</div>
-	</table>
-
+      <div class="mb-3">
+         <label for="내용">내용</label>
+         <textarea class="form-control" id="editor" name="content" rows="10"
+            placeholder="" value="" required></textarea>
+         <script>
+            CKEDITOR.replace('editor');
+         </script>
+      </div>   
+      
+      <div class="container">
+         <div class="row justify-content-end">
+            <button type="submit" class="btn btn-info">작성 완료</button>
+         </div>
+      </div>
+   </form>
+   </div>   
+   </div>   
 </body>
 <footer>
-	<!-- footer -->
-	<jsp:include page="../footer.jsp" flush="false" />
+    <!-- footer -->
+    <jsp:include page="../footer.jsp" flush="false" />
 </footer>
 </html>

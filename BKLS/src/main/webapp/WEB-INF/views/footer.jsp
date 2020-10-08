@@ -38,7 +38,9 @@
     <!-- 회사소개/지도보기 -->
     <div class="footleft">
        <p>서울시 종로구 삼일대로17길 51 스타골드 빌딩 3층 </p>
-       <a href="#" onClick="window.open('https://map.naver.com/v5/entry/place/1189668723?c=14135386.1795637,4518812.5984630,15,0,0,0,dh','지도보기','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">지도보기</a>
+
+       <a href="" onClick="window.open('../map')">회사 약도</a>
+
     </div>
     
     <!-- 회사 목적 소개 -->
@@ -52,8 +54,5 @@
     </div>
 </div>
 </body>
-
-<!-- Optional JavaScript -->
-   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 </html>

@@ -26,20 +26,17 @@
 
 	<div class="container">
 	<div class="row justify-content-center">
-	<form action="write1" method="post">
-		
+	<form action="/write1" method="get">
+		<div class="mb-3">
+			<label for="작성자">작성자</label> 
+			<input type="text"
+			 name="id" value="<sec:authentication property="principal.username" />" readonly />   
+		</div>
 		<div class="mb-3">
 			<label for="제목">제목</label> <input type="text" class="form-control"
 				name="title1" placeholder="" value="" required>
 		</div>
 
-		<div class="mb-3">
-			<label for="작성자">작성자</label> 
-			<input type="text"
-			 name="<sec:authentication property="principal.username" />" readonly />   
-			
-			
-		</div>
 		<div class="mb-3">
 			<label for="내용">내용</label>
 			<textarea class="form-control" id="editor1" name="content1" rows="10"
