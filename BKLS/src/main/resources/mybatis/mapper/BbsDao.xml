@@ -56,9 +56,9 @@
 	<insert id="writeDao1">
 		insert into
 		help_list (help_num, help_id, help_title,
-		help_content, help_date, help_group, help_hit)
+		help_content, help_date, help_group, help_hit,help_open)
 		values(next value for
-		help_seq,#{param1},#{param2},#{param3},sysdatetime(),'0','0');
+		help_seq,#{param1},#{param2},#{param3},sysdatetime(),'0','0',#{param4});
 	</insert>
 
 	<select id="help" resultType="com.project.springboot.dto.BbsDto">

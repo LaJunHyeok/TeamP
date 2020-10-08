@@ -24,7 +24,7 @@
 
 <!-- Nav Bar -->   
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand">
+  <a class="navbar-brand">  
   <a href="/"><img src="../seoul.png" width="80" height="80" ></a>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
 		</sec:authorize>
 		<input type="hidden" name="loginRedirect" value="${loginRedirect}" />
 		<sec:authorize access="hasRole('ADMIN')">
-    <a href="admin/userList">관리자화면</a>
+    <a href="/userList">관리자화면</a>
     </sec:authorize>
 
      

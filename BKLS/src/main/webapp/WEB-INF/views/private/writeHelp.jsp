@@ -48,12 +48,13 @@
 		
 		<div class="container">
 			<div class="row justify-content-end">
-				<div class="btn-group-toggle" data-toggle="buttons">
-					<label class="btn btn-info">
-						<input type="checkbox"> 공개 / 비공개
-					</label>&nbsp;&nbsp;
-				</div>	
-				<button type="submit" class="btn btn-info">작성 완료</button>
+						<label for="open" class="btn btn-info"> <input id="open"
+							type="radio" name="help_open" value="1" checked />공개
+						</label>&nbsp;&nbsp; <label for="close"
+							class="btn btn-info"> <input id="close" type="radio"
+							name="help_open" value="0" />비공개
+						</label>&nbsp;&nbsp;
+						<button type="submit" class="btn btn-info">작성 완료</button>
 			</div>
 		</div>
 	</form>

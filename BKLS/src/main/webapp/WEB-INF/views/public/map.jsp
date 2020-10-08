@@ -64,10 +64,10 @@
    
    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-
-<body>
-    <!-- 메뉴 바 -->
+ <!-- 메뉴 바 -->
    <jsp:include page="../menubar.jsp" flush="false" />
+   
+<body style="overflow: scroll;">
    
    <br><br>
    <div class="container">

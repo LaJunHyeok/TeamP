@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +42,9 @@
 			<td>${dto.help_title}</td>
 	</tr>
 	<tr>
+			<fmt:formatDate value="${dto.help_date}" pattern="yyyy-MM-dd" var="date" />
 			<td>작성일</td>
-			<td>${dto.help_date}</td>
+			<td>${date}</td>
 	</tr>
 	<tr>
 			<td>조회수</td>
@@ -55,11 +58,15 @@
 	</table>
 	</div>	
 	</div>
-
+	
 	<div class="container">
 		<div class="row justify-content-end">
+		<sec:authentication property="principal.username" var="currentUserName"/>
+		<c:if test="${currentUserName == dto.help_id}">
 			<a class="btn btn-info" href="helpdelete?num1=${dto.help_num}">삭제</a> &nbsp;&nbsp;
 			<a class="btn btn-info" href="helpmodify?num1=${dto.help_num}">수정</a> &nbsp;&nbsp;
+		</c:if>
+			
 			<a href="#" onclick="history.go(-1)" class="btn btn-info" >목록보기</a>
 		</div>
 	</div>

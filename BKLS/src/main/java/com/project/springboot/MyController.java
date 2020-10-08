@@ -240,8 +240,8 @@ public class MyController
 	}
 	// 민원 글쓰기 
 		@RequestMapping("/write1")
-		public String write1(String id,String title1, String content1) {
-			dao.writeDao1(id,title1, content1);
+		public String write1(String id,String title1, String content1,int help_open) {
+			dao.writeDao1(id,title1, content1,help_open);
 			return "redirect:/public/help";
 		}
 	//민원 글작성 업데이트
@@ -343,23 +343,66 @@ public class MyController
 		return "public/mainPage";
 	}
 
-	// admin user manage mapping
-	@RequestMapping("/admin/userList")
-	public String userlistPage( Model model) {
-		model.addAttribute("userList", uDao.userList());
-		return "admin/userList";
-	}
-	   
-	@RequestMapping("/admin/userBan")
-	public String userBan(HttpServletRequest request, Model model) {
-		uDao.userBan(request.getParameter("id"));
-		return "redirect:userList";
-	}
-	   
-	@RequestMapping("/admin/userRestore")
-	public String userRestore(HttpServletRequest request, Model model) {
-		uDao.userRestore(request.getParameter("id"));
-		return "redirect:userList";
-	}
+	// @@@@ admin user manage mapping
+		@RequestMapping("/userList")
+		public String userlistPage(HttpServletRequest request, Model model) {
+			
+			int uPage = 1;
+			
+			try {
+				String page = request.getParameter("page");
+				System.out.println("Page :" +page);
+				uPage = Integer.parseInt(page);
+			} catch (Exception e) {}
+			
+			BbsPage total = uDao.userArticlePage(); 
+			model.addAttribute("total", uDao.userArticlePage());
+			int totalCount = total.getTotal();	
+			PageInfo info = new PageInfo();
+			BpageInfo binfo = info.pInfo(totalCount,uPage);
+			int nStart = (uPage -1) * listCount;
+			List<userListDto> list = uDao.userList(nStart);
+
+			System.out.println(binfo);
+			model.addAttribute("userList", list);
+			model.addAttribute("page", binfo);
+
+			return "admin/userList";
+		}
+		
+		@RequestMapping("/user_search")
+		public String userSearch(HttpServletRequest request ,String id, Model model){
+			
+			int nPage = 1;
+			try {
+				String page = request.getParameter("page");
+				System.out.println("Page :" +page);
+				nPage = Integer.parseInt(page);
+			} catch (Exception e) {}
+			BbsPage total = uDao.userSearchPage(id); 
+			model.addAttribute("total",uDao.userSearchPage(id));
+			int totalCount = total.getTotal();
+			PageInfo info = new PageInfo();
+			BpageInfo binfo = info.pInfo(totalCount,nPage);
+			int nStart = (nPage -1) * listCount;
+			List<userListDto> userId= uDao.user_search(id,nStart);
+			model.addAttribute("help", userId);
+			model.addAttribute("page", binfo);
+			model.addAttribute("id",id);
+
+			return "admin/user_search";
+		}
+		
+		@RequestMapping("/admin/userBan")
+		public String userBan(HttpServletRequest request, Model model) {
+			uDao.userBan(request.getParameter("id"));
+			return "redirect:userList";
+		}
+
+		@RequestMapping("/admin/userRestore")
+		public String userRestore(HttpServletRequest request, Model model) {
+			uDao.userRestore(request.getParameter("id"));
+			return "redirect:userList";
+		}
 
 }

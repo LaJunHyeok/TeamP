@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +42,9 @@
          <td>${dto.notice_title}</td>
    </tr>
    <tr>
+   		 <fmt:formatDate value="${dto.notice_date}" pattern="yyyy-MM-dd" var="date" />	
          <td>작성일</td>
-         <td>${dto.notice_date}</td>
+         <td>${date}</td>
    </tr>
    <tr>
          <td>조회수</td>
@@ -55,16 +58,18 @@
    </table>
    </div>   
    </div>
-   
-   <div class="container">
-      <div class="row justify-content-end">
-         <a class="btn btn-info" href="noticedelete?num=${dto.notice_num}">삭제</a> &nbsp;&nbsp;
-         <a class="btn btn-info" href="noticemodify?num=${dto.notice_num}">수정</a> &nbsp;&nbsp;
-         <a class="btn btn-info" href="#" onclick="history.go(-1)">목록보기</a>
-      </div>
-   </div>
+		<div class="container">
+			<div class="row justify-content-end">
+	<sec:authorize access="hasRole('ADMIN')">
+					<a class="btn btn-info" href="noticedelete?num=${dto.notice_num}">삭제</a> &nbsp;&nbsp;
+         <a class="btn btn-info"
+						href="noticemodify?num=${dto.notice_num}">수정</a> &nbsp;&nbsp;
+    </sec:authorize>
+				<a class="btn btn-info" href="#" onclick="history.go(-1)">목록보기</a>
+			</div>
+		</div>
 
-   </c:forEach>
+		</c:forEach>
 
 
 </body>

@@ -13,6 +13,7 @@
     width: 100%;
     height: 100px;   
     background: gray;
+    
 }
 .footleft {
     flex: 1;

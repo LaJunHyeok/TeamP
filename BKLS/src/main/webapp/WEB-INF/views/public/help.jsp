@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,10 +35,13 @@
 				</tr>
 
 				<c:forEach items="${help}" var="dto">
+					<sec:authentication property="principal.username" var="currentUserName"/>
+		
 					<tr>
 						<td>${dto.help_num}</td>
 						<td>${dto.help_id}</td>
-						<td><a href="helpview?num1=${dto.help_num}"> <!-- 현재 날짜 받아오기 -->
+						
+						<!-- 현재 날짜 받아오기 -->
 								<jsp:useBean id="now" class="java.util.Date" /> <!-- 날짜 형식 맞추기 -->
 								<fmt:formatDate value="${now}" pattern="MMdd" var="todayDate" />
 								<fmt:formatDate value="${dto.help_date}" pattern="MMdd"
@@ -46,11 +49,35 @@
 									value="${todayDate}" type="number" var="today" /> <fmt:parseNumber
 									value="${dtoDate}" type="number" var="uploadDate" /> <!-- 업로드 된 날짜 형식 바꿔서 테이블에 적용해주기 -->
 								<fmt:formatDate value="${dto.help_date}"
-									pattern="yyyy-MM-dd" var="uploadDate2" /> <c:if
+									pattern="yyyy-MM-dd" var="uploadDate2" />
+									
+						<c:choose>
+						<c:when test="${dto.help_open == '1' }">
+						<td><a href="helpview?num1=${dto.help_num}">  <c:if
 									test="${ 1 > today-uploadDate }">
 									<span id="date" class="badge badge-secondary">New</span>
 								</c:if> ${dto.help_title}
 						</a></td>
+						</c:when>
+						<c:when test="${currentUserName == dto.help_id}">
+						<td>
+						<c:if
+									test="${ 1 > today-uploadDate }">
+									<span id="date" class="badge badge-secondary">New</span>
+								</c:if>
+						<a href="helpview?num1=${dto.help_num}">${dto.help_title}</a>
+						</td>
+						</c:when>
+						<c:otherwise>
+						<td>
+						<c:if
+									test="${ 1 > today-uploadDate }">
+									<span id="date" class="badge badge-secondary">New</span>
+								</c:if>
+						 비공개 글입니다.</td>
+						</c:otherwise>
+						</c:choose>
+						
 						<td>${uploadDate2}</td>
 						<td>${dto.help_hit}</td>
 					</tr>

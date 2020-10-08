@@ -6,12 +6,34 @@
 <mapper namespace="com.project.springboot.dao.userListDao">
     <select id="userList" resultType="com.project.springboot.dto.userListDto">
         select * 
+          from user_info a
+         inner join user_account b on a.id = b.id
+         where a.id != 'admin'
+         order by a.id asc
+        offset #{nStart} rows
+         fetch next 10 rows
+          only
+    </select>
+    
+    <select id="userArticlePage" resultType="com.project.springboot.dto.BbsPage">
+        select count(*) as total 
         from user_info a
         inner join user_account b on a.id = b.id
         where a.id != 'admin'
-        order by date desc
     </select>
     
+    <select id="user_search" resultType="com.project.springboot.dto.BbsDto">
+       select * from help_LIST
+       where help_id LIKE  '%'+#{param1}+'%'
+       order by help_num desc , help_date asc
+       offset  #{param2} rows
+       fetch next 10 rows only
+    </select>
+   
+    <select id="userSearchPage" resultType="com.project.springboot.dto.BbsPage">
+       select count(*)as total from help_list where help_id=#{param1}
+    </select>
+   
     <update id="userBan">
         update user_account set isEnabled = 0 where id = #{param1}
     </update>
@@ -19,19 +41,5 @@
     <update id="userRestore">
         update user_account set isEnabled = 1 where id = #{param1}
     </update>
-    <select id="userArticlePage" resultType="com.project.springboot.dto.BbsPage">
-		select count(*) as total 
-        from user_info a
-        inner join user_account b on a.id = b.id
-        where a.id != 'admin'
-        order by date desc
-	</select>
-	<select id="user_search" resultType="com.project.springboot.dto.BbsDto">
-		select count(*) as total 
-        from user_info a
-        inner join user_account b on a.id = b.id
-        where a.id != #{param1}
-        order by date desc
-	</select>
-    
+        
 </mapper>

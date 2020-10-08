@@ -17,7 +17,7 @@
    <jsp:include page="../menubar.jsp" flush="false" />
 </header>
 
-<body>
+<body style="overflow: scroll;">
 
    <br>
    <p style="text-align: center">

@@ -64,12 +64,14 @@
    
    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-
-<body>
-       <!-- 메뉴 바 -->
+ <!-- 메뉴 바 -->
    <jsp:include page="../menubar.jsp" flush="false" />
    
+<body >
+      
+   
    <br><br>
+   <div style="overflow:scroll;">
    <div class="container">
       <div class="row justify-content-center">
          <p style="text-align:start">
@@ -82,9 +84,12 @@
          <div id="map_view" style="width: 700px; height: 700px;"></div>
       </div>   
    </div>
+</div>
 
 </body>
 
+<footer >
 <jsp:include page="../footer.jsp" flush="false" />
+</footer>
 
 </html>
