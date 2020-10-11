@@ -65,7 +65,18 @@
 									test="${ 1 > today-uploadDate }">
 									<span id="date" class="badge badge-secondary">New</span>
 								</c:if>
-						<a href="helpview?num1=${dto.help_num}">${dto.help_title}</a>
+						<a href="helpview?num1=${dto.help_num}">${dto.help_title}(비공개)</a>
+						</td>
+						</c:when>
+						<c:when test="${currentUserName=='admin'}">
+						<td>
+						<a href="helpview?num1=${dto.help_num}">
+						<c:if	test="${ 1 > today-uploadDate }">
+						<span id="date" class="badge badge-secondary">
+						New
+						</span>
+						</c:if>${dto.help_title}
+						</a>
 						</td>
 						</c:when>
 						<c:otherwise>

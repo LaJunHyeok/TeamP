@@ -92,6 +92,6 @@
 	</select>
 	<select id="help_search"
 		resultType="com.project.springboot.dto.BbsDto">
-		select * from help_list where help_title like '%'+#{param1}+'%'
+		select * from help_list where help_title like '%'+#{param1}+'%' order by help_num desc
 	</select>
 </mapper>
