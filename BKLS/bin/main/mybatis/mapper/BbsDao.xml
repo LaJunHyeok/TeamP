@@ -56,15 +56,24 @@
 	<insert id="writeDao1">
 		insert into
 		help_list (help_num, help_id, help_title,
-		help_content, help_date, help_group, help_hit,help_open)
+		help_content, help_date, help_group, help_hit,help_open,help_step)
 		values(next value for
-		help_seq,#{param1},#{param2},#{param3},sysdatetime(),'0','0',#{param4});
+		help_seq,#{param1},#{param2},#{param3},sysdatetime(),next value for help_group_seq,'0',#{param4},'0');
+	</insert>
+	
+	<!-- 관리자 댓글 작성 -->
+	<insert id="writeDao2">
+		insert into
+		help_list (help_num, help_id, help_title,
+		help_content, help_date, help_group, help_hit,help_open,help_step,help_reply)
+		values(next value for
+		help_seq,'admin',#{param2},#{param3},sysdatetime(),#{param1},'0','0','1',#{param4});
 	</insert>
 
 	<select id="help" resultType="com.project.springboot.dto.BbsDto">
 		select * from help_list
 		order by
-		help_num desc, help_date asc
+		help_group desc, help_step asc
 		offset #{nStart} rows
 		fetch next 10 rows
 		only

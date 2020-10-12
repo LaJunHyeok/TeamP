@@ -24,6 +24,7 @@ public interface BbsDao {
 	
 	// ¹Î¿ø °ÇÀÇ Mapper
 	public int writeDao1(String id,String title1, String content1,int help_open);
+	public int writeDao2(int num1,String title2, String content2,String user);
 	public List<BbsDto> help(int curPage);
 	public List<BbsDto> helpview(int num1);
 	public int helpdelete(int num1);

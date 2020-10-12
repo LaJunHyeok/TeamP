@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 
-@Data
+
 public class BbsDto {
 	private int notice_num;
 	private String notice_id;
@@ -24,6 +24,7 @@ public class BbsDto {
 	private int help_open;
 	private int help_hit;
 	private int help_step;
+	private String help_reply;
 	
 	public int getNotice_num() {
 		return notice_num;
@@ -114,6 +115,12 @@ public class BbsDto {
 	}
 	public void setHelp_step(int help_step) {
 		this.help_step = help_step;
+	}
+	public String getHelp_reply() {
+		return help_reply;
+	}
+	public void setHelp_reply(String help_reply) {
+		this.help_reply = help_reply;
 	}
 	
 	

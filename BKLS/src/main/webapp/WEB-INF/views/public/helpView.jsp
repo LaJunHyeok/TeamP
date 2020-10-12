@@ -61,15 +61,19 @@
 	
 	<div class="container">
 		<div class="row justify-content-end">
+		<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.username" var="currentUserName"/>
+		
 		<c:if test="${currentUserName == dto.help_id}">
 			<a class="btn btn-info" href="helpdelete?num1=${dto.help_num}">삭제</a> &nbsp;&nbsp;
 			<a class="btn btn-info" href="helpmodify?num1=${dto.help_num}">수정</a> &nbsp;&nbsp;
 		</c:if>
 		<c:if test="${currentUserName == 'admin'}">
-			<a class="btn btn-info" href="#?num1=${dto.help_num}">답글</a> &nbsp;&nbsp;
+			<a class="btn btn-info" href="/reply?num1=${dto.help_num}">답글</a> &nbsp;&nbsp;
 		</c:if>
+			</sec:authorize>
 			<a href="#" onclick="history.go(-1)" class="btn btn-info" >목록보기</a>
+		
 		</div>
 	</div>
 
