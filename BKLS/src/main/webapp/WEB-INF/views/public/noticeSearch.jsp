@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>건의사항 게시판</title>
 
@@ -17,7 +17,7 @@
    <jsp:include page="../menubar.jsp" flush="false" />
 </header>
 
-<body>
+<body style="overflow: scroll;">
 
    <br>
    <p style="text-align: center">
@@ -39,18 +39,20 @@
                <tr>
                   <td>${dto.notice_num}</td>
                   <td>${dto.notice_id}</td>
-                  <td><a href="noticeview?num=${dto.notice_num}"> <!-- 현재 날짜 받아오기 -->
-                        <jsp:useBean id="now" class="java.util.Date" /> <!-- 날짜 형식 맞추기 -->
-                        <fmt:formatDate value="${now}" pattern="ddkk" var="todayDate" />
-                        <fmt:formatDate value="${dto.notice_date}" pattern="ddkk"
-                           var="dtoDate" /> <!-- 날짜 형식 맞춘거 숫자형으로 변환 --> <fmt:parseNumber
-                           value="${todayDate}" type="number" var="today" /> <fmt:parseNumber
-                           value="${dtoDate}" type="number" var="uploadDate" /> <!-- 업로드 된 날짜 형식 바꿔서 테이블에 적용해주기 -->
-                        <fmt:formatDate value="${dto.notice_date}"
-                           pattern="yy-MM-dd kk:mm" var="uploadDate2" /> <c:if
-                           test="${ 100 > today-uploadDate }">
-                           <span id="date" class="badge badge-secondary">New</span>
-                        </c:if> ${dto.notice_title}
+                  <td><a href="noticeview?num=${dto.notice_num}">
+                     <!-- 현재 날짜 받아오기 -->
+                     <jsp:useBean id="now" class="java.util.Date" />
+                     <!-- 날짜 형식 맞추기 -->
+                     <fmt:formatDate value="${now}" pattern="MMdd" var="todayDate" />
+                     <fmt:formatDate value="${dto.notice_date}" pattern="MMdd"   var="dtoDate" />
+                     <!-- 날짜 형식 맞춘거 숫자형으로 변환 -->
+                     <fmt:parseNumber value="${todayDate}" type="number" var="today" />
+                     <fmt:parseNumber value="${dtoDate}" type="number" var="uploadDate" />
+                     <!-- 업로드 된 날짜 형식 바꿔서 테이블에 적용해주기 -->
+                     <fmt:formatDate value="${dto.notice_date}" pattern="yyyy-MM-dd" var="uploadDate2" />
+                     <c:if test="${ 1 > today-uploadDate }">
+                        <span id="date" class="badge badge-secondary">New</span>
+                     </c:if> ${dto.notice_title}
                   </a></td>
                   <td>${dto.notice_date}</td>
                   <td>${dto.notice_hit}</td>
@@ -78,58 +80,60 @@
    </div>
 
    <nav aria-label="..." class="row justify-content-md-center">
-      <ul class="pagination">
-         <c:choose>
-            <c:when test="${(page.curPage -1) <1}">
-               <li class="page-item disabled"><span class="page-link">&lt;&lt;</span></li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item"><a class="page-link" href="notice?page=1">&lt;&lt;</a></li>
-            </c:otherwise>
-         </c:choose>
-         <c:choose>
-            <c:when test="${(page.curPage -1) <1}">
-               <li class="page-item disabled"><span class="page-link">&lt;</span></li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item"><a class="page-link"
-                  href="notice?page=${page.curPage - 1}">&lt;</a></li>
-            </c:otherwise>
-         </c:choose>
-         <c:forEach var="fEach" begin="${page.startPage}"
-            end="${page.endPage}" step="1">
-            <c:choose>
-               <c:when test="${page.curPage == fEach}">
-                  <li class="page-item"><a class="page-link" href="#">${fEach}</a></li>
-               </c:when>
-               <c:otherwise>
-                  <li class="page-item"><a class="page-link"
-                     href="notice?page=${fEach}">${fEach}</a></li>
-               </c:otherwise>
-            </c:choose>
-         </c:forEach>
-         <c:choose>
-            <c:when test="${page.curPage >= page.totalPage}">
-               <li class="page-item disabled"><span class="page-link">&gt;</span></li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item"><a class="page-link"
-                  href="notice?page=${page.curPage + 1}">&gt;</a></li>
-            </c:otherwise>
-         </c:choose>
-         <c:choose>
-            <c:when test="${page.curPage == page.totalPage}">
-               <li class="page-item"><a class="page-link">&gt;&gt;</a></li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item"><a class="page-link"
-                  href="notice?page=${page.totalPage}">&gt;&gt;</a></li>
-            </c:otherwise>
-         </c:choose>
+				<ul class="pagination">
 
-      </ul>
+					<c:choose>
+						<c:when test="${(page.curPage -1) <1}">
+							<li class="page-item disabled"><span class="page-link">&lt;&lt;</span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								href="noticesearch?page=1&title=${title}">&lt;&lt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${(page.curPage -1) <1}">
+							<li class="page-item disabled"><span class="page-link">&lt;</span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								href="noticesearch?page=${page.curPage - 1}&title=${title}">&lt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach var="fEach" begin="${page.startPage}"
+						end="${page.endPage}" step="1">
+						<c:choose>
+							<c:when test="${page.curPage == fEach}">
+								<li class="page-item"><a class="page-link" href="#">${fEach}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="noticesearch?page=${fEach}&title=${title}">${fEach}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${page.curPage >= page.totalPage}">
+							<li class="page-item disabled"><span class="page-link">&gt;</span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								href="noticesearch?page=${page.curPage + 1}&title=${title}">&gt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${page.curPage == page.totalPage}">
+							<li class="page-item"><a class="page-link">&gt;&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								href="noticesearch?page=${page.totalPage}&title=${title}">&gt;&gt;</a></li>
+						</c:otherwise>
+					</c:choose>
 
-   </nav>
+				</ul>
+
+			</nav>
 
 </body>
 

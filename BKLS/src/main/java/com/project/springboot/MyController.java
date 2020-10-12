@@ -152,7 +152,7 @@ public class MyController
        PageInfo info = new PageInfo();
        BpageInfo binfo = info.pInfo(totalCount,nPage);
        int nStart = (nPage -1) * listCount;
-       System.out.println("�쁽�옱 �럹�씠吏��뒗"+nPage);
+       System.out.println("page"+nPage);
        List<BbsDto> noticesearch = dao.noticesearch(title,nStart);
        System.out.println("search");
        model.addAttribute("notice", noticesearch);
@@ -183,6 +183,10 @@ public class MyController
 	@RequestMapping("/public/navi")
 	public String navi(){
 		return "public/navigator";
+	}
+	@RequestMapping("/public/police")
+	public String police(){
+		return "public/police";
 	}
 	 @RequestMapping("/map")
 	   public String map() {
