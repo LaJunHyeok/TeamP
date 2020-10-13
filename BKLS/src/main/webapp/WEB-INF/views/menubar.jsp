@@ -46,7 +46,8 @@
         </div>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/public/navi"> 주변 파출소 안내 <span class="sr-only">(current)</span></a>
+      <a class="nav-link" onclick="window.open('https://google.com/maps/search/경찰서')">주변 파출소 안내<span class="sr-only">(current)</span></a>
+      
       </li>
     </ul>
     <sec:authorize access="!isAuthenticated()">
